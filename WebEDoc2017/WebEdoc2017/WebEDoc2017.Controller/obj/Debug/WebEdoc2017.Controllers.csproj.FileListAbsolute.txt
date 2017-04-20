@@ -1,0 +1,7 @@
+E:\Projects\WEBEDOCTOR\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\bin\Debug\WebEdoc2017.Controllers.dll
+E:\Projects\WEBEDOCTOR\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\bin\Debug\WebEdoc2017.Controllers.pdb
+E:\Projects\WEBEDOCTOR\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\bin\Debug\System.Web.Mvc.dll
+E:\Projects\WEBEDOCTOR\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\bin\Debug\System.Web.Mvc.xml
+E:\Projects\WEBEDOCTOR\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\obj\Debug\WebEdoc2017.Controllers.csprojResolveAssemblyReference.cache
+E:\Projects\WEBEDOCTOR\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\obj\Debug\WebEdoc2017.Controllers.dll
+E:\Projects\WEBEDOCTOR\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\obj\Debug\WebEdoc2017.Controllers.pdb

@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEdoc2017.Controllers", "WebEDoc2017.Controller\WebEdoc2017.Controllers.csproj", "{615E4374-CB7B-4716-93DE-FF98609B6278}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEdoc2017.Models", "WebEdoc2017.Model\WebEdoc2017.Models.csproj", "{C5F3BE14-63DE-4567-ABDC-D9FCD1A3FFFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEdoc2017.Service", "WebEdoc.Service\WebEdoc2017.Service.csproj", "{59461879-E2B3-4B48-9E60-21C6405F1906}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEdoc2017.PHIC.Presentation", "WebEdoc2017.PHIC.Presentation\WebEdoc2017.PHIC.Presentation.csproj", "{6FF0C81D-E6A4-448E-BB9B-D53A5DF4C6A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1F838B1F-93CA-4037-B919-EBD378B0D07F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{0A00262A-0969-4696-B4A3-34150F474407}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{BABD8A7B-B912-489F-BBB6-B418D45F303B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEdoc2017.ViewModels", "WebEdoc2017.ViewModel\WebEdoc2017.ViewModels.csproj", "{1E4F95BC-0472-442B-81EF-C3DFAF02B5E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NonVisualComponents", "NonVisualComponents", "{E763FD68-2E0F-407E-845D-3D9DDF469403}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEdoc2017.TrustedConnection", "WebEdoc2017.TrustedConnection\WebEdoc2017.TrustedConnection.csproj", "{366F940F-9968-4769-BA70-51B979D4FBAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{615E4374-CB7B-4716-93DE-FF98609B6278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615E4374-CB7B-4716-93DE-FF98609B6278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615E4374-CB7B-4716-93DE-FF98609B6278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615E4374-CB7B-4716-93DE-FF98609B6278}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F3BE14-63DE-4567-ABDC-D9FCD1A3FFFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F3BE14-63DE-4567-ABDC-D9FCD1A3FFFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F3BE14-63DE-4567-ABDC-D9FCD1A3FFFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F3BE14-63DE-4567-ABDC-D9FCD1A3FFFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59461879-E2B3-4B48-9E60-21C6405F1906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59461879-E2B3-4B48-9E60-21C6405F1906}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59461879-E2B3-4B48-9E60-21C6405F1906}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59461879-E2B3-4B48-9E60-21C6405F1906}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FF0C81D-E6A4-448E-BB9B-D53A5DF4C6A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FF0C81D-E6A4-448E-BB9B-D53A5DF4C6A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FF0C81D-E6A4-448E-BB9B-D53A5DF4C6A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FF0C81D-E6A4-448E-BB9B-D53A5DF4C6A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E4F95BC-0472-442B-81EF-C3DFAF02B5E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E4F95BC-0472-442B-81EF-C3DFAF02B5E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E4F95BC-0472-442B-81EF-C3DFAF02B5E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E4F95BC-0472-442B-81EF-C3DFAF02B5E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{366F940F-9968-4769-BA70-51B979D4FBAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{366F940F-9968-4769-BA70-51B979D4FBAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{366F940F-9968-4769-BA70-51B979D4FBAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{366F940F-9968-4769-BA70-51B979D4FBAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{615E4374-CB7B-4716-93DE-FF98609B6278} = {1F838B1F-93CA-4037-B919-EBD378B0D07F}
+		{C5F3BE14-63DE-4567-ABDC-D9FCD1A3FFFC} = {1F838B1F-93CA-4037-B919-EBD378B0D07F}
+		{59461879-E2B3-4B48-9E60-21C6405F1906} = {BABD8A7B-B912-489F-BBB6-B418D45F303B}
+		{6FF0C81D-E6A4-448E-BB9B-D53A5DF4C6A0} = {0A00262A-0969-4696-B4A3-34150F474407}
+		{1E4F95BC-0472-442B-81EF-C3DFAF02B5E9} = {1F838B1F-93CA-4037-B919-EBD378B0D07F}
+		{366F940F-9968-4769-BA70-51B979D4FBAF} = {E763FD68-2E0F-407E-845D-3D9DDF469403}
+	EndGlobalSection
+EndGlobal
