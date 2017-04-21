@@ -1,0 +1,5 @@
+G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\bin\Debug\WebEdoc2017.ViewModels.dll
+G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\bin\Debug\WebEdoc2017.ViewModels.pdb
+G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\obj\Debug\WebEdoc2017.ViewModels.csprojResolveAssemblyReference.cache
+G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\obj\Debug\WebEdoc2017.ViewModels.dll
+G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\obj\Debug\WebEdoc2017.ViewModels.pdb
