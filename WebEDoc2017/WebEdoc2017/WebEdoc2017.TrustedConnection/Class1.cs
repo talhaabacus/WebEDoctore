@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebEdoc2017.TrustedConnection
 {
+    //Test comment
     public class Class1
     {
     }
