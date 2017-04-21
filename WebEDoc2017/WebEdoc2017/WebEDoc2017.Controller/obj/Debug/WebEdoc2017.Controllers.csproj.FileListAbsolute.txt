@@ -12,3 +12,10 @@ G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Co
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\obj\Debug\WebEdoc2017.Controllers.csprojResolveAssemblyReference.cache
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\obj\Debug\WebEdoc2017.Controllers.dll
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\obj\Debug\WebEdoc2017.Controllers.pdb
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\bin\Debug\WebEdoc2017.Controllers.dll
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\bin\Debug\WebEdoc2017.Controllers.pdb
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\bin\Debug\System.Web.Mvc.dll
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\bin\Debug\System.Web.Mvc.xml
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\obj\Debug\WebEdoc2017.Controllers.csprojResolveAssemblyReference.cache
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\obj\Debug\WebEdoc2017.Controllers.dll
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEDoc2017.Controller\obj\Debug\WebEdoc2017.Controllers.pdb

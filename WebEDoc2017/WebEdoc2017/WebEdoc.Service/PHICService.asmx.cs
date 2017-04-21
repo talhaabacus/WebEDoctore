@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -16,11 +17,18 @@ namespace WebEdoc.Service
     // [System.Web.Script.Services.ScriptService]
     public class PHICService : System.Web.Services.WebService
     {
+        public struct PatientData
+        {
+            DataTable dt;
+            bool isValid;
+            string Error;
+        }
 
         [WebMethod]
         public string HelloWorld()
         {
             return "Hello World";
         }
+    
     }
 }

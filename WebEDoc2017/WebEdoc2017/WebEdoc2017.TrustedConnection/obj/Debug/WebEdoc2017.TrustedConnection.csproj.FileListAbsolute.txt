@@ -3,3 +3,8 @@ G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.Tr
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.TrustedConnection\obj\Debug\WebEdoc2017.TrustedConnection.csprojResolveAssemblyReference.cache
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.TrustedConnection\obj\Debug\WebEdoc2017.TrustedConnection.dll
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.TrustedConnection\obj\Debug\WebEdoc2017.TrustedConnection.pdb
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.TrustedConnection\bin\Debug\WebEdoc2017.TrustedConnection.dll
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.TrustedConnection\bin\Debug\WebEdoc2017.TrustedConnection.pdb
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.TrustedConnection\obj\Debug\WebEdoc2017.TrustedConnection.csprojResolveAssemblyReference.cache
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.TrustedConnection\obj\Debug\WebEdoc2017.TrustedConnection.dll
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.TrustedConnection\obj\Debug\WebEdoc2017.TrustedConnection.pdb

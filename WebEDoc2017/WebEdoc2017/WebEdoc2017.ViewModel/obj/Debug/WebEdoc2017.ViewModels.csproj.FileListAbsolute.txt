@@ -3,3 +3,8 @@ G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.Vi
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\obj\Debug\WebEdoc2017.ViewModels.csprojResolveAssemblyReference.cache
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\obj\Debug\WebEdoc2017.ViewModels.dll
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\obj\Debug\WebEdoc2017.ViewModels.pdb
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\bin\Debug\WebEdoc2017.ViewModels.dll
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\bin\Debug\WebEdoc2017.ViewModels.pdb
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\obj\Debug\WebEdoc2017.ViewModels.csprojResolveAssemblyReference.cache
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\obj\Debug\WebEdoc2017.ViewModels.dll
+E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.ViewModel\obj\Debug\WebEdoc2017.ViewModels.pdb
