@@ -178,6 +178,10 @@
       <Project>{c5f3be14-63de-4567-abdc-d9fcd1a3fffc}</Project>
       <Name>WebEdoc2017.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebEdoc2017.ViewModel\WebEdoc2017.ViewModels.csproj">
+      <Project>{1e4f95bc-0472-442b-81ef-c3dfaf02b5e9}</Project>
+      <Name>WebEdoc2017.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
