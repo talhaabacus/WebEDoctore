@@ -16,21 +16,34 @@ G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Servic
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\obj\Debug\WebEdoc2017.Service.csprojResolveAssemblyReference.cache
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\obj\Debug\WebEdoc.Service.dll
 G:\Projects\Webedoctor\GitHub\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\obj\Debug\WebEdoc.Service.pdb
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\csc.exe
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.CodeAnalysis.dll
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.CSharp.Core.targets
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.VisualBasic.Core.targets
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\System.Collections.Immutable.dll
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\System.Reflection.Metadata.dll
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\vbc.exe
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\VBCSCompiler.exe
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\VBCSCompiler.exe.config
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\WebEdoc.Service.dll.config
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\WebEdoc.Service.dll
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\WebEdoc.Service.pdb
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\obj\Debug\WebEdoc2017.Service.csprojResolveAssemblyReference.cache
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\obj\Debug\WebEdoc.Service.dll
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\obj\Debug\WebEdoc.Service.pdb
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\csc.exe
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\System.Collections.Immutable.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\System.Reflection.Metadata.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\vbc.exe
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\VBCSCompiler.exe
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\roslyn\VBCSCompiler.exe.config
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\WebEdoc.Service.dll.config
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\WebEdoc.Service.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\WebEdoc.Service.pdb
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\obj\Debug\WebEdoc2017.Service.csprojResolveAssemblyReference.cache
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\obj\Debug\WebEdoc.Service.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\obj\Debug\WebEdoc.Service.pdb
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\OracleDataLib.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.ServiceLocation.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.Unity.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.Unity.Interception.dll
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.EnterpriseLibrary.Data.xml
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.EnterpriseLibrary.Common.xml
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.ServiceLocation.pdb
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.Unity.pdb
+E:\MY DAILY TASK\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc.Service\bin\Microsoft.Practices.Unity.Interception.pdb

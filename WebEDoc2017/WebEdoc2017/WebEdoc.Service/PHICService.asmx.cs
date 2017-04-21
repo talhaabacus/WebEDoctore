@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-
+using OracleDataLib.Actions;
 namespace WebEdoc.Service
 {
     /// <summary>
@@ -19,9 +19,9 @@ namespace WebEdoc.Service
     {
         public struct PatientData
         {
-            DataTable dt;
-            bool isValid;
-            string Error;
+           public DataTable dt;
+           public bool isValid;
+           public string Error;
         }
 
         [WebMethod]
@@ -29,6 +29,28 @@ namespace WebEdoc.Service
         {
             return "Hello World";
         }
-    
+         [WebMethod]
+        public PatientData GetPatientRecords()
+        {
+            PatientData data = new PatientData();
+         
+            try
+            {
+                string sQuery = "SELECT ETHNICITY, ETHNICITY_CODE FROM PATIENT_ETH ORDER BY ETHNICITY ASC";
+                data.dt= new DBAction().ExecuteDataSetInline(sQuery).Tables[0];
+            }
+            catch (Exception ex)
+            {
+                data.Error = ex.Message.ToString();  
+                //throw;
+            }
+            finally
+            {
+
+            }
+            
+            return data;
+
+        }
     }
 }
