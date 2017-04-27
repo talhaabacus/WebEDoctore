@@ -4,7 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using OracleDataLib.Actions;
+using WebEdoc2017.DataAccess;
+
 namespace WebEdoc.Service
 {
     /// <summary>
@@ -29,28 +30,78 @@ namespace WebEdoc.Service
         {
             return "Hello World";
         }
-         [WebMethod]
+        [WebMethod]
         public PatientData GetPatientRecords()
         {
             PatientData data = new PatientData();
-         
+             OracleDataAccess.OracleCommandData _data = new OracleDataAccess.OracleCommandData();
             try
             {
-                string sQuery = "SELECT ETHNICITY, ETHNICITY_CODE FROM PATIENT_ETH ORDER BY ETHNICITY ASC";
-                data.dt= new DBAction().ExecuteDataSetInline(sQuery).Tables[0];
+
+                _data._CommandType = CommandType.Text;
+                _data.CommandText = "SELECT * FROM PatientTable";
+                _data.OpenWithOutTrans();
+
+                //Executing Query
+                DataSet _ds = _data.Execute(OracleDataAccess.ExecutionType.ExecuteDataSet) as DataSet;
+
+                data.dt = _ds.Tables[0];
+                data.isValid = true;
+
+                //string sQuery = "SELECT * FROM PatientTable ";
+                // data.dt= new DBAction().ExecuteDataSetInline(sQuery).Tables[0];
             }
             catch (Exception ex)
             {
-                data.Error = ex.Message.ToString();  
+                data.Error = ex.Message.ToString();
                 //throw;
             }
             finally
             {
-
+                _data.Close();
             }
-            
+
             return data;
 
         }
+
+        #region Patient Health Information Capture....
+
+
+        [WebMethod]
+        public PatientData GetDocumentCategory()
+        {
+            PatientData data = new PatientData();
+            OracleDataAccess.OracleCommandData _data = new OracleDataAccess.OracleCommandData();
+            try
+            {
+
+                _data._CommandType = CommandType.Text;
+                _data.CommandText = "SELECT * FROM DOC_Category";
+                _data.OpenWithOutTrans();
+
+                //Executing Query
+                DataSet _ds = _data.Execute(OracleDataAccess.ExecutionType.ExecuteDataSet) as DataSet;
+
+                data.dt = _ds.Tables[0];
+                data.isValid = true;
+
+                //string sQuery = "SELECT * FROM PatientTable ";
+                // data.dt= new DBAction().ExecuteDataSetInline(sQuery).Tables[0];
+            }
+            catch (Exception ex)
+            {
+                data.Error = ex.Message.ToString();
+                //throw;
+            }
+            finally
+            {
+                _data.Close();
+            }
+
+            return data;
+        }
+
+        #endregion
     }
 }

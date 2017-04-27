@@ -10,7 +10,13 @@ namespace WebEdoc2017.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            PHICService.PatientData data = new PHICService.PatientData();
+            using (var service=new PHICService.PHICServiceSoapClient())
+            {
+                data = service.GetDocumentCategory();
+            }
+            var returnData = data.dt;
+            return View(returnData);
         }
     }
 }

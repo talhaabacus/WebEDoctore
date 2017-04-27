@@ -38,6 +38,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebEdoc2017.Models">
+      <HintPath>..\WebEdoc2017.Model\bin\Debug\WebEdoc2017.Models.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HomeViewModel.cs" />
