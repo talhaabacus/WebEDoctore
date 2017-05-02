@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEdoc2017.Controllers", "WebEDoc2017.Controller\WebEdoc2017.Controllers.csproj", "{615E4374-CB7B-4716-93DE-FF98609B6278}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -31,10 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEdoc2017.TrustedConnecti
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{7EA66D7A-E3B4-4195-9675-7C7B011A61E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEdoc2017.DataAccess", "WebEdoc2017.DataAccess\WebEdoc2017.DataAccess.csproj", "{E3008EBB-7FB4-4970-A681-E493DDFF6A96}"
-	ProjectSection(ProjectDependencies) = postProject
-		{59461879-E2B3-4B48-9E60-21C6405F1906} = {59461879-E2B3-4B48-9E60-21C6405F1906}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEdoc2017.DataLayer", "WebEdoc2017.DataLayer\WebEdoc2017.DataLayer.csproj", "{D52A0FA2-970C-4D3A-AF5C-46C62159BF3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,10 +63,10 @@ Global
 		{366F940F-9968-4769-BA70-51B979D4FBAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{366F940F-9968-4769-BA70-51B979D4FBAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{366F940F-9968-4769-BA70-51B979D4FBAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3008EBB-7FB4-4970-A681-E493DDFF6A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3008EBB-7FB4-4970-A681-E493DDFF6A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3008EBB-7FB4-4970-A681-E493DDFF6A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3008EBB-7FB4-4970-A681-E493DDFF6A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D52A0FA2-970C-4D3A-AF5C-46C62159BF3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D52A0FA2-970C-4D3A-AF5C-46C62159BF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D52A0FA2-970C-4D3A-AF5C-46C62159BF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D52A0FA2-970C-4D3A-AF5C-46C62159BF3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +78,6 @@ Global
 		{6FF0C81D-E6A4-448E-BB9B-D53A5DF4C6A0} = {0A00262A-0969-4696-B4A3-34150F474407}
 		{1E4F95BC-0472-442B-81EF-C3DFAF02B5E9} = {1F838B1F-93CA-4037-B919-EBD378B0D07F}
 		{366F940F-9968-4769-BA70-51B979D4FBAF} = {E763FD68-2E0F-407E-845D-3D9DDF469403}
-		{E3008EBB-7FB4-4970-A681-E493DDFF6A96} = {7EA66D7A-E3B4-4195-9675-7C7B011A61E5}
+		{D52A0FA2-970C-4D3A-AF5C-46C62159BF3A} = {7EA66D7A-E3B4-4195-9675-7C7B011A61E5}
 	EndGlobalSection
 EndGlobal

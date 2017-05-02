@@ -1,6 +1,0 @@
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.DataAccess\bin\Debug\WebEdoc2017.DataAccess.dll.config
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.DataAccess\bin\Debug\WebEdoc2017.DataAccess.dll
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.DataAccess\bin\Debug\WebEdoc2017.DataAccess.pdb
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.DataAccess\obj\Debug\WebEdoc2017.DataAccess.dll
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.DataAccess\obj\Debug\WebEdoc2017.DataAccess.pdb
-E:\GITHUB\WebEDoctore\WebEDoc2017\WebEdoc2017\WebEdoc2017.DataAccess\obj\Debug\WebEdoc2017.DataAccess.csprojResolveAssemblyReference.cache

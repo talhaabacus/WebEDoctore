@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using WebEdoc2017.DataAccess;
+using WebEdoc2017.DataLayer;
 
 namespace WebEdoc.Service
 {
