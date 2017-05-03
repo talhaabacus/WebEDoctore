@@ -129,7 +129,17 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\HomeView.css" />
+    <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png.png" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\ui-bg_glass_75_dadada_1x400.png" />
     <Content Include="contextmenumaster\demo\example.html" />
     <Content Include="contextmenumaster\demo\icons\application-monitor.png" />
     <Content Include="contextmenumaster\demo\icons\application-table.png" />
@@ -146,16 +156,19 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\accent.png" />
+    <Content Include="Images\add.png" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\Category.png" />
     <Content Include="Images\delete.png" />
     <Content Include="Images\edit.png" />
     <Content Include="Images\folderIcons.png" />
+    <Content Include="Images\Plus.png" />
+    <Content Include="Images\Minus.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="contextmenumaster\simplecontextmenu.jquery.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\HomeView.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
@@ -232,6 +245,8 @@
           <DevelopmentServerPort>50856</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/WebEdoc2017.PHIC.Presentation</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

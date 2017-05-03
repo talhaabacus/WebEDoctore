@@ -1,0 +1,42 @@
+﻿/*Tree View Style*/  
+
+.collapse {
+        width: 15px;
+        background-image: url('../Images/Plus.png');
+        background-repeat: no-repeat;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .expand {
+        width: 15px;
+        background-image: url('../Images/Minus.png');
+        background-repeat: no-repeat;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .treeview ul {
+        font: 14px Arial,Sans-Serif;
+        margin: 0px;
+        padding-left: 20px;
+        list-style: none;
+    }
+
+    .treeview > li > a {
+        font-weight: bold;
+    }
+
+    .treeview li {
+    }
+
+        .treeview li a {
+            padding: 0px;
+            font-size: 11px;
+            /* display: inline-block;*/
+            text-decoration: none;
+            width: 150px;
+            text-wrap: avoid;
+        }
+
+        /*Tree View Style*/  

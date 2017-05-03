@@ -2,47 +2,7 @@
 @model List<WebEdoc2017.Models.DocumentCategoryModel>
 
 
-
-<style>
-    .collapse {
-        width: 15px;
-        background-image: url(../Images/bullet.png);
-        background-repeat: no-repeat;
-        display: inline-block;
-        cursor: pointer;
-    }
-
-    .expand {
-        width: 15px;
-        background-image: url('../Images/bullet.png');
-        background-repeat: no-repeat;
-        display: inline-block;
-        cursor: pointer;
-    }
-
-    .treeview ul {
-        font: 14px Arial,Sans-Serif;
-        margin: 0px;
-        padding-left: 20px;
-        list-style: none;
-    }
-
-    .treeview > li > a {
-        font-weight: bold;
-    }
-
-    .treeview li {
-    }
-
-        .treeview li a {
-            padding: 0px;
-            font-size: 11px;
-            /* display: inline-block;*/
-            text-decoration: none;
-            width: 150px;
-            text-wrap: avoid;
-        }
-</style>
+<link href="~/Content/HomeView.css" rel="stylesheet" />
 
 <div>
     @if (Model != null )
@@ -72,7 +32,13 @@ foreach (var i in siteMenu.Where(x => x.Parent_ID.Equals(ParentID)))
             }
 
             <span id="te-@i.DOC_CATEGORY_ID" class="selector">
-                <a class="abc" href="javascript:Hello('@i.DOC_CATEGORY_ID','@i.Parent_ID');">@i.Name <input name="MenuID" class="hdMenuID" type="hidden" value="@i.DOC_CATEGORY_ID" /><input name="ParentID" class="hdParentID" type="hidden" value="@i.Parent_ID" /></a>
+                <a class="abc" href="javascript:GetPatientDocument('@i.DOC_CATEGORY_ID','@i.Parent_ID');">@i.Name
+                 <input name="MenuID" class="hdMenuID" type="hidden" value="@i.DOC_CATEGORY_ID" />
+                <input name="ParentID" class="hdParentID" type="hidden" value="@i.Parent_ID" />
+                    <input name="Name" class="hdName" type="hidden" value="@i.Name" />
+                    <input name="Description" class="hdDescription" type="hidden" value="@i.Description" />
+                
+                </a>
             </span>
             @if (submenu > 0)
             {
@@ -86,73 +52,10 @@ foreach (var i in siteMenu.Where(x => x.Parent_ID.Equals(ParentID)))
 }
 
 
-<script>
-    $(document).ready(function () {
 
-        $(".treeview li > ul").css('display', 'none');
-        $(".collapsible").click(function (e) {
+    <script src="~/Scripts/HomeView.js"></script>
 
-            e.preventDefault();
-            $(this).toggleClass("collapse expand");
-            $(this).closest("li").children("ul").slideToggle();
-        });
-
-
-
-
-    });
+<link href="~/contextmenumaster/jquery.contextmenu.css" rel="stylesheet" />
+<script src="~/contextmenumaster/jquery.contextmenu.js"></script>
    
 
-
-    $(function () {
-        $('.selector').contextPopup({
-
-            title: '     Category',
-            items: [
-              {
-                  label: 'Create Sub-Category', icon: '../../Images/Category.png', action: function ($trigger, e) {
-                      var triggerElement = $trigger.currentTarget;
-                      getSelectedNodeValue(triggerElement, "SubCategory");
-                  }
-              },
-              {
-                  label: 'Create Sibling', icon: '../../Images/Category.png', action: function ($trigger, e) {
-
-                      var triggerElement = $trigger.currentTarget;
-                      getSelectedNodeValue(triggerElement, "Sibling");
-                  }
-              },
-              {
-                  label: 'Edit', icon: '../../Images/Edit.png', action: function ($trigger, e) {
-                      var triggerElement = $trigger.currentTarget;
-                      getSelectedNodeValue(triggerElement,"Edit");
-                      //var Self = $trigger.currentTarget;
-                      //var Parent = $trigger.currentTarget;
-
-                      //var MenuID = $("#" + Self.id).find("input:hidden[name=MenuID]").val();
-                      //var ParentID = $("#" + Parent.id).find("input:hidden[name=ParentID]").val();
-
-                      //$("#txtMenuID").val(MenuID);
-                    //  $("#txtParentID").val(ParentID);
-                  }
-              },
-
-              {
-                  label: 'Delete', icon: '../../Images/delete.png', action: function ($trigger,e) {
-
-                      var triggerElement = $trigger.currentTarget;
-                      getSelectedNodeValue(triggerElement, "Delete");
-                  }
-              },
-              //{ label: 'Cheese', icon: '../../contextmenumaster/icons/bin-metal.png', action: function () { alert('clicked 5') } },
-              //{ label: 'Bacon', icon: '../../Images/bullet.png', action: function () { alert('clicked 6') } },
-            //  null, // divider
-              //{ label: 'Onwards', icon: '../../Images/bullet.png', action: function () { alert('clicked 7') } },
-              //{ label: 'Flutters', icon: '../../contextmenumaster/icons/cassette.png', action: function () { alert('clicked 8') } }
-            ]
-        });
-
-
-    });
-
-</script>
