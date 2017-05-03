@@ -1,0 +1,82 @@
+﻿@model List<WebEdoc2017.Models.PatientDocumentModel>
+
+<style>
+   
+
+    .tr {
+        text-align: center;
+        text-wrap: normal;
+    }
+</style>
+
+<table width="100%">
+    <thead class="th">
+        <tr>
+            <td>
+                Doc ID
+            </td>
+            <td>
+                Name
+            </td>
+            <td>
+                Description
+            </td>
+            <td>
+                Category
+            </td>
+            <td>
+                Electronic Link
+            </td>
+            <td>
+                 Extension
+            </td>
+            <td>
+                 Path
+            </td>
+            <td>
+                PatientID
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            int count=0;
+            foreach (var item in Model)
+            {
+                count++;
+                if(count%2==0)
+                { 
+                <tr class="tr0">
+                    <td>@item.PATIENT_DOCUMENT_ID</td>
+                    <td>@item.NAME</td>
+                    <td>@item.DESCRIPTION</td>
+                    <td>@item.DOC_CATEGORY_ID</td>
+                    <td><a href="">@item.ELECTRONIC_LINK</a></td>
+                    <td><a href="">@item.PATH</a></td>
+                    <td><a href="">@item.EXTENSION</a></td>
+                    <td><a href="">@item.PATIENT_ID</a></td>
+                </tr>
+                }
+                else
+                {
+                    <tr class="tr1">
+                        <td>@item.PATIENT_DOCUMENT_ID</td>
+                        <td>@item.NAME</td>
+                        <td>@item.DESCRIPTION</td>
+                        <td>@item.DOC_CATEGORY_ID</td>
+                        <td><a href="">@item.ELECTRONIC_LINK</a></td>
+                        <td><a href="">@item.PATH</a></td>
+                        <td><a href="">@item.EXTENSION</a></td>
+                        <td><a href="">@item.PATIENT_ID</a></td>
+                    </tr>
+                }
+            }
+        }
+        else
+        {
+            <tr><td colspan="8" align="center">No Record Found</td></tr>
+        }
+    </tbody>
+
+</table>

@@ -24,6 +24,11 @@ namespace WebEdoc2017.Controllers
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                "GET-PATIENT-DOCUMENT",
+                "GET-PATIENT-DOCUMENT",
+                new { controller = "Home", action = "getPatientDocumentByCategoryID" }
+           );
         }
     }
 }

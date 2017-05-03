@@ -53,9 +53,6 @@
     <Reference Include="WebEdoc2017.Models">
       <HintPath>..\WebEdoc2017.Model\bin\Debug\WebEdoc2017.Models.dll</HintPath>
     </Reference>
-    <Reference Include="WebEdoc2017.ViewModels">
-      <HintPath>..\WebEdoc2017.ViewModel\bin\Debug\WebEdoc2017.ViewModels.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerFactory\PHICControllerFactory.cs" />
@@ -70,14 +67,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\PHICService\PHICService.wsdl" />
     <None Include="Service References\PHICService\WebEdoc2017.Controllers.PHICService.PatientData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebEdoc2017.ViewModel\WebEdoc2017.ViewModels.csproj">
+      <Project>{1e4f95bc-0472-442b-81ef-c3dfaf02b5e9}</Project>
+      <Name>WebEdoc2017.ViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\PHICService\" />

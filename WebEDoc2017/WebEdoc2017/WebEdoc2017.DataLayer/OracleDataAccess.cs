@@ -121,10 +121,10 @@ namespace WebEdoc2017.DataLayer
             {
                 //			try
                 //			{
-                conn.Open();
+              //  conn.Open();
 
                 int nRows = cmd.ExecuteNonQuery();
-                conn.Close();
+             //   conn.Close();
                 return nRows;
                 //			}
                 //			catch(Exception exc)

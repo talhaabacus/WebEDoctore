@@ -10,9 +10,11 @@ namespace WebEdoc2017.ViewModels
     public class HomeViewModel
     {
         public List<DocumentCategoryModel> lstDocumentCategory;
+        public List<PatientDocumentModel> lstPatientDocument;
         public HomeViewModel()
         {
             lstDocumentCategory = new List<DocumentCategoryModel>();
+            lstPatientDocument = new List<PatientDocumentModel>();
         }
     }
 }
