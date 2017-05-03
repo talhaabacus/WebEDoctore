@@ -1,31 +1,210 @@
-﻿@model System.Data.DataTable
+﻿@model WebEdoc2017.ViewModels.HomeViewModel
 @using System.Data; 
 @{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h2>Document Category</h2>
-    <table>
-        <thead>
-            <tr>
-                @foreach (DataColumn col in Model.Columns)
-                {
-                    <th>@col.ColumnName</th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (DataRow row in Model.Rows)
-            {
-                <tr>
-                    @foreach (DataColumn col in Model.Columns)
-                    {
-                        <td>@row[col.ColumnName]</td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
 
+<script src="~/Scripts/jquery-1.11.2.min.js"></script>
+<link href="~/contextmenumaster/jquery.contextmenu.css" rel="stylesheet" />
+<script src="~/contextmenumaster/jquery.contextmenu.js"></script>
+
+<div>
+    <div style="clear:both;">
+        <div id="divTreeView" class="treeview" style="width:30%;overflow-x:scroll; height:500px;float:left;margin-top:0px; background-color:#f7f7f7; ">
+            @Html.Partial("_treeViewPartial", Model.lstDocumentCategory)
+        </div>
+        <div id="PatientDocumentContent" style="width:70%;float:right;margin-top:0px; ">
+
+        </div>
+
+        <div id="AddEditCategory">
+            <input type="hidden" id="actionType" value="" />
+            <input type="hidden" id="_MenuID" value="" />
+            <input type="hidden" id="_ParentID" value="" />
+            <table width="60%">
+                <tr>
+                    <td><input id="txtCategoryName" placeholder="Enter Name" value="" class="form-control" /></td>
+
+
+                </tr>
+                <tr>
+                    <td><input id="txtCategoryDesc" placeholder="Enter Description" value="" class="form-control" /></td>
+                </tr>
+
+            </table>
+
+
+        </div>
+        <div id="DeleteCategoryConfirmation">
+            Are you sure to want delete this category?
+
+        </div>
+    </div>
+</div>
+<script>
+    function getSelectedNodeValue(CurrentID, type) {
+        debugger;
+      
+                if (type == "Delete") {
+                    $('#DeleteCategoryConfirmation').dialog('open');
+                }
+                else {
+                    if (type == "Edit")
+                        $('#AddEditCategory').dialog('option', 'title', 'Edit Record');
+                       
+                    else 
+                         $('#AddEditCategory').dialog('option', 'title', 'Add Sibling/Sub-Category');
+                    
+              
+                      
+                    
+                    $('#AddEditCategory').dialog('open');
+                  
+                }
+
+
+                var MenuID = $("#" + CurrentID.id).find("input:hidden[name=MenuID]").val();
+                var ParentID = $("#" + CurrentID.id).find("input:hidden[name=ParentID]").val();
+
+                $("#_MenuID").val(MenuID);
+                $("#_ParentID").val(ParentID);
+                $("#actionType").val(type);
+
+            }
+
+    function Hello(MenuID, ParentID) {
+
+       
+
+                var URL = '@Url.Action("getPatientDocumentByCategoryID", "HOME")';
+                var par = {
+                    'MenuID': MenuID,
+                    'ParentID': ParentID,
+                };
+               
+                $.ajax({
+                    url: "../Home/getPatientDocumentByCategoryID",
+                    type: "POST",
+                    data: par,
+                    success: function (response, textStatus, jqXHR) {
+                      
+                        $("#PatientDocumentContent").html("");
+                        $("#PatientDocumentContent").html(response);
+                       
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("error");
+                    },
+                    // callback handler that will be called on completion
+                    // which means, either on success or error
+                    complete: function () {
+                    }
+                });
+            }
+
+
+     
+        $(function () {
+            $('#DeleteCategoryConfirmation').dialog({
+                title:"Confirmation",
+                autoOpen: false,
+                width: 400,
+                modal: true,
+                height: 150,
+                buttons: {
+                    "Delete": function () {
+                        DeleteCategory();
+                    },
+                    "Close": function () { $(this).dialog("close"); }
+                }
+
+            });
+        });
+
+        $(function () {
+            $('#AddEditCategory').dialog({
+                title: "Add/Edit",
+                autoOpen: false,
+                width: 400,
+                modal: true,
+                height: 300,
+                buttons: {
+                    "SAVE": function () {
+                        SaveCategory();
+                    },
+                    "Close": function () { $(this).dialog("close"); }
+                }
+
+            });
+        });
+
+        function SaveCategory()
+        {
+
+            var _MenuID= $("#_MenuID").val();
+            var _ParentID= $("#_ParentID").val();
+            var actionType = $("#actionType").val();
+            var CategoryName = $("#txtCategoryName").val();
+            var CategoryDesc = $("#txtCategoryDesc").val();
+            var URL = '@Url.Action("SaveCategory", "Home")';
+
+            var parameter={
+                '_MenuID': _MenuID,
+                '_ParentID':_ParentID,
+                'actionType':actionType,
+                'CategoryName':CategoryName,
+                'CategoryDesc':CategoryDesc
+
+            };
+            $.post(URL, parameter, function (data, status, xhr) {
+                if(data !=null)
+                {
+                    $("#divTreeView").html("");
+                    $("#divTreeView").html(data);
+                    $("#AddEditCategory").dialog("close")
+                }
+
+
+
+            })
+
+        }
+
+
+    function DeleteCategory()
+    {
+        var CategoryID = $("#_MenuID").val();
+       
+        var URL = '../Home/DeleteDocumentCategoryByCategoryID';
+
+        var parameter = {
+            'CategroyID': CategoryID,
+           
+
+        };
+        $.post(URL, parameter, function (data, status, xhr) {
+            if (data != null) {
+                $("#divTreeView").html("");
+                $("#divTreeView").html(data);
+                $("#DeleteCategoryConfirmation").dialog("close")
+            }
+
+
+
+        })
+    }
+        jQuery.browser = {};
+        (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0;
+            if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true;
+                jQuery.browser.version = RegExp.$1;
+            }
+        })();
+
+
+
+</script>
