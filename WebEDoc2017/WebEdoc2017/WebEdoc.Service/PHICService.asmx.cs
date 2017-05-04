@@ -21,9 +21,9 @@ namespace WebEdoc.Service
     {
         public struct PatientData
         {
-           public DataTable dt;
-           public bool isValid;
-           public string Error;
+            public DataTable dt;
+            public bool isValid;
+            public string Error;
         }
 
         public struct paraDocumentCategory
@@ -43,7 +43,7 @@ namespace WebEdoc.Service
         public PatientData GetPatientRecords()
         {
             PatientData data = new PatientData();
-             OracleDataAccess.OracleCommandData _data = new OracleDataAccess.OracleCommandData();
+            OracleDataAccess.OracleCommandData _data = new OracleDataAccess.OracleCommandData();
             try
             {
 
@@ -112,17 +112,17 @@ namespace WebEdoc.Service
         }
 
         [WebMethod]
-        public int SaveDocumentCategory(paraDocumentCategory _par,string Type)
+        public int SaveDocumentCategory(paraDocumentCategory _par, string Type)
         {
             int returnValue = 0;
             string _querystring = string.Empty;
-            if(Type=="EDIT")
+            if (Type == "EDIT")
             {
                 _querystring = "Update DOC_CATEGORY SET NAME='" + _par.Name.ToString().Trim() + "',Description='" + _par.Description.ToString() + "' WHERE DOC_CATEGORY_ID=" + _par.DOC_CATEGORY_ID + " AND PARENT_ID=" + _par.Parent_ID + "";
             }
-            else if(Type=="SIBLING")
+            else if (Type == "SIBLING")
             {
-              //  _data.CommandText = "Update DOC_CATEGORY SET NAME='" + _par.Name.ToString().Trim() + "',Description='" + _par.Description.ToString() + "' WHERE DOC_CATEGORY_ID=" + _par.DOC_CATEGORY_ID + " AND PARENT_ID=" + _par.Parent_ID + "";
+                //  _data.CommandText = "Update DOC_CATEGORY SET NAME='" + _par.Name.ToString().Trim() + "',Description='" + _par.Description.ToString() + "' WHERE DOC_CATEGORY_ID=" + _par.DOC_CATEGORY_ID + " AND PARENT_ID=" + _par.Parent_ID + "";
                 _querystring = "INSERT INTO DOC_CATEGORY (DOC_CATEGORY_ID,NAME,DESCRIPTION,PARENT_ID) VALUES(DOC_CATEGORYSEQ.NEXTVAL,'" + _par.Name + "','" + _par.Description + "'," + _par.Parent_ID + ")";
 
 
@@ -136,7 +136,7 @@ namespace WebEdoc.Service
             try
             {
 
-              
+
                 _data._CommandType = CommandType.Text;
                 _data.CommandText = _querystring;
                 _data.OpenWithOutTrans();
@@ -145,8 +145,8 @@ namespace WebEdoc.Service
                 object obj = _data.Execute(OracleDataAccess.ExecutionType.ExecuteNonQuery);
                 returnValue = Convert.ToInt16(obj);
 
-             //   data.dt = _ds.Tables[0];
-             //   data.isValid = true;
+                //   data.dt = _ds.Tables[0];
+                //   data.isValid = true;
 
                 //string sQuery = "SELECT * FROM PatientTable ";
                 // data.dt= new DBAction().ExecuteDataSetInline(sQuery).Tables[0];
@@ -174,7 +174,7 @@ namespace WebEdoc.Service
 
 
                 _data._CommandType = CommandType.Text;
-                _data.CommandText = "DELETE FROM DOC_CATEGORY WHERE DOC_CATEGORY_ID="+DocumentCategoryID+"";
+                _data.CommandText = "DELETE FROM DOC_CATEGORY WHERE DOC_CATEGORY_ID=" + DocumentCategoryID + "";
                 _data.OpenWithOutTrans();
 
                 //Executing Query
@@ -213,7 +213,7 @@ namespace WebEdoc.Service
             {
 
                 _data._CommandType = CommandType.Text;
-                _data.CommandText = "SELECT * FROM PATIENT_DOCUMENT where trim(DOC_CATEGORY_ID)="+CategoryID+"";
+                _data.CommandText = "SELECT * FROM PATIENT_DOCUMENT where trim(DOC_CATEGORY_ID)=" + CategoryID + "";
                 _data.OpenWithOutTrans();
 
                 //Executing Query
@@ -240,7 +240,7 @@ namespace WebEdoc.Service
         }
 
 
-       
+
 
         #endregion
     }
