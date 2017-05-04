@@ -1,0 +1,61 @@
+﻿
+@model List<WebEdoc2017.Models.DocumentCategoryModel>
+
+
+<link href="~/Content/HomeView.css" rel="stylesheet" />
+
+<div>
+    @if (Model != null )
+    {
+        <ul>
+            @GetTreeView(Model, Model.FirstOrDefault().Parent_ID)
+        </ul>
+    }
+
+</div>
+@helper GetTreeView(List<WebEdoc2017.Models.DocumentCategoryModel> siteMenu, Int64 ParentID)
+{
+foreach (var i in siteMenu.Where(x => x.Parent_ID.Equals(ParentID)))
+{
+
+        <li>
+            @{var submenu = siteMenu.Where(z => z.Parent_ID.Equals(i.DOC_CATEGORY_ID)).Count();}
+            @if (submenu > 0)
+            {
+                <span class="collapse collapsible">
+                    &nbsp;
+                </span>
+            }
+            else
+            {
+                <span style="width:15px; display:inline-block">&nbsp;</span>
+            }
+
+            <span id="te-@i.DOC_CATEGORY_ID" class="selector">
+                <a class="abc" href="javascript:GetPatientDocument('@i.DOC_CATEGORY_ID','@i.Parent_ID');">@i.Name
+                 <input name="MenuID" class="hdMenuID" type="hidden" value="@i.DOC_CATEGORY_ID" />
+                <input name="ParentID" class="hdParentID" type="hidden" value="@i.Parent_ID" />
+                    <input name="Name" class="hdName" type="hidden" value="@i.Name" />
+                    <input name="Description" class="hdDescription" type="hidden" value="@i.Description" />
+                
+                </a>
+            </span>
+            @if (submenu > 0)
+            {
+                <ul>
+                    @GetTreeView(siteMenu, i.DOC_CATEGORY_ID)
+                </ul>
+            }
+        </li>
+
+                }
+}
+
+
+
+    <script src="~/Scripts/HomeView.js"></script>
+
+<link href="~/contextmenumaster/jquery.contextmenu.css" rel="stylesheet" />
+<script src="~/contextmenumaster/jquery.contextmenu.js"></script>
+   
+

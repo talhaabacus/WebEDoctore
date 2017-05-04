@@ -1,31 +1,45 @@
-﻿@model System.Data.DataTable
+﻿@model WebEdoc2017.ViewModels.HomeViewModel
 @using System.Data; 
 @{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h2>Document Category</h2>
-    <table>
-        <thead>
-            <tr>
-                @foreach (DataColumn col in Model.Columns)
-                {
-                    <th>@col.ColumnName</th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (DataRow row in Model.Rows)
-            {
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.11.2.min.js"></script>
+
+<div>
+    <div style="clear:both;">
+        <div id="divTreeView" class="treeview" style="width:30%;overflow-x:scroll; height:500px;float:left;margin-top:0px; background-color:#f7f7f7; ">
+            @Html.Partial("_treeViewPartial", Model.lstDocumentCategory)
+        </div>
+        <div id="PatientDocumentContent" style="width:70%;float:right;margin-top:0px; ">
+
+        </div>
+
+        <div id="AddEditCategory">
+            <input type="hidden" id="actionType" value="" />
+            <input type="hidden" id="_MenuID" value="" />
+            <input type="hidden" id="_ParentID" value="" />
+            <table width="60%">
                 <tr>
-                    @foreach (DataColumn col in Model.Columns)
-                    {
-                        <td>@row[col.ColumnName]</td>
-                    }
+                    <td><input id="txtCategoryName" placeholder="Enter Name" value="" class="form-control" /></td>
+
+
                 </tr>
-            }
-        </tbody>
-    </table>
+                <tr>
+                    <td><input id="txtCategoryDesc" placeholder="Enter Description" value="" class="form-control" /></td>
+                </tr>
+
+            </table>
+
+
+        </div>
+        <div id="DeleteCategoryConfirmation">
+            Are you sure to want delete this category?
+
+        </div>
+    </div>
 </div>
+
 

@@ -11,7 +11,7 @@ namespace WebEdoc.Service
     /// <summary>
     /// Summary description for TCService
     /// </summary>
-    
+
     [WebService(Namespace = "TCService")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [ScriptService]
@@ -21,35 +21,21 @@ namespace WebEdoc.Service
     public class TCService : System.Web.Services.WebService
     {
         [WebMethod]
-        public string EncryptAES(string TextToEncrypt)
+        public string EncryptAES(string TextToEncrypt, string EncryptionKey)
         {
-            string strEncrypted = string.Empty;
-            string strhash = string.Empty;
-
-            strEncrypted =  TC.TConnect.EncryptAES(TextToEncrypt);
-            strhash = CalculateSHA2Hash(TextToEncrypt);
-
-            var data = new { Encrypted = strEncrypted, Hash = strhash };
-            
-            System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
-            return js.Serialize(data);            
-
+            return TC.TConnect.EncryptAES(TextToEncrypt, EncryptionKey);
         }
 
         [WebMethod]
-        public string DecryptAES(string TextToDecrypt)
+        public string DecryptAES(string TextToDecrypt, string EncryptionKey)
         {
-            return TC.TConnect.DecryptAES(TextToDecrypt);
+            return TC.TConnect.DecryptAES(TextToDecrypt, EncryptionKey);
         }
 
         [WebMethod]
         public string CalculateSHA2Hash(string InputString)
         {
-            return TC.TConnect.CalculateSHA2Hash(InputString); 
+            return TC.TConnect.CalculateSHA2Hash(InputString);
         }
-         
     }
-
-
-
 }
