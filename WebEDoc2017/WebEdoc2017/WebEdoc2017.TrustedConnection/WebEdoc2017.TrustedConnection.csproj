@@ -41,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TConnect.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebEdoc2017.DataLayer\WebEdoc2017.DataLayer.csproj">
+      <Project>{d52a0fa2-970c-4d3a-af5c-46c62159bf3a}</Project>
+      <Name>WebEdoc2017.DataLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

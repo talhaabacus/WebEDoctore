@@ -92,6 +92,10 @@
       <Project>{d52a0fa2-970c-4d3a-af5c-46c62159bf3a}</Project>
       <Name>WebEdoc2017.DataLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebEdoc2017.TrustedConnection\WebEdoc2017.TrustedConnection.csproj">
+      <Project>{366f940f-9968-4769-ba70-51b979d4fbaf}</Project>
+      <Name>WebEdoc2017.TrustedConnection</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
