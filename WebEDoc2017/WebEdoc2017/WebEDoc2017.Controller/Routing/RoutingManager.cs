@@ -21,8 +21,8 @@ namespace WebEdoc2017.Controllers
            // routes.MapRoute("login", "login", new { controller = "Login", action = "Login" });
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{patient_id}/{Visit_key}/{pid}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, patient_id = "",Visit_key="", pid="" }
             );
            // routes.MapRoute(
            //     "GET-PATIENT-DOCUMENT",

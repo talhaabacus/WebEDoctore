@@ -9,11 +9,14 @@
 <script src="~/Scripts/jquery-1.11.2.min.js"></script>
 
 <div>
+    <input id="hdPatientLogId" type="hidden" value="@ViewBag.PatientLogID" />
     <div style="clear:both;">
-        <div id="divTreeView" class="treeview" style="width:30%;overflow-x:scroll; height:500px;float:left;margin-top:0px; background-color:#f7f7f7; ">
+        
+        <div id="divTreeView" class="treeview" style="width:20%;overflow-x:scroll; height:500px;float:left;margin-top:0px; background-color:#f7f7f7; ">
+           
             @Html.Partial("_treeViewPartial", Model.lstDocumentCategory)
         </div>
-        <div id="PatientDocumentContent" style="width:70%;float:right;margin-top:0px; ">
+        <div id="PatientDocumentContent" style="width:80%;float:right;margin-top:0px;  ">
 
         </div>
 
@@ -30,6 +33,9 @@
                 <tr>
                     <td><input id="txtCategoryDesc" placeholder="Enter Description" value="" class="form-control" /></td>
                 </tr>
+                <tr>
+                    <td><img src="../../../../Images/Loader.gif" style="width:45%;height:17%;display:none;"  id="AddEditCategoryLoader" /></td>
+                </tr>
 
             </table>
 
@@ -39,7 +45,307 @@
             Are you sure to want delete this category?
 
         </div>
+
+        <div id="DeleteDocumentConfirmation">
+            Are you sure to want delete this Document?
+
+        </div>
+
+        <div id="ErrorModelPop">
+           <div id="Error"
+                ></div>
+
+        </div>
+
+      
+        <div id="AddEditDocument">
+            <table width="100%" style="font-size:10px;" >
+                <tr>
+                    <tr>
+                        <td><input type="hidden" id="hdPatientDocumentID" value="0"/></td>
+                    </tr>
+                <tr>
+                    <td valign="top">Title</td>
+                    <td valign="top">  <input type="text" class="form-control" id="txtTitle" /></td>
+                    <td valign="top">
+                        Name
+                    </td>
+                    <td valign="top"><input id="txtDocumentName" type="text" class="form-control" required /></td>
+                </tr>
+                <tr>
+                    <td valign="top">Attachement Type</td>
+                    <td valign="top"> <select id="ddlAttachementType" class="form-control" onchange="TypeOfDocument()"><option value="0">--Select--</option><option value="1">Electronic Line</option><option value="2">File Upload</option></select>@* *@</td>
+                    <td valign="top">File</td>
+                    <td valign="top"><input disabled type="file" class="form-control" id="DocumentFile" name="DocumentFile" /></td>
+                  
+                </tr>
+                <tr>
+                    <td valign="top">
+                        Electronic Link
+                    </td>
+                    <td valign="top">
+                        <input disabled id="txtDocumentElectronicLink" type="text" class="form-control" />
+                    </td>
+                    <td valign="top">Description</td>
+                    <td colspan="3" valign="top"><textarea rows="3" cols="3" id="txtDocumentDesc" type="text" class="form-control" required></textarea></td>
+                </tr>
+                <tr>
+                   
+                </tr>
+            </table>
+
+        </div>
+
     </div>
 </div>
 
+<script>
+function GetPatientDocument(MenuID, ParentID) {
+    var Patient_ID = $("#hdPatientLogId").val();
 
+    var par = {
+        'MenuID': MenuID,
+        'ParentID': ParentID,
+        'Patient_ID': Patient_ID
+    };
+    var URL = '@Url.Action("getPatientDocumentByCategoryID", "Home")';
+    $("#divTreeViewLoader").show();
+    $.ajax({
+        url: URL,
+        type: "POST",
+        data: par,
+        success: function (response, textStatus, jqXHR) {
+
+            $("#PatientDocumentContent").html("");
+            $("#PatientDocumentContent").html(response);
+            $("#divTreeViewLoader").hide();
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("error");
+        },
+        // callback handler that will be called on completion
+        // which means, either on success or error
+        complete: function () {
+        }
+    });
+}
+
+    function DeleteCategory() {
+        var CategoryID = $("#_MenuID").val();
+
+
+        var URL = '@Url.Action("DeleteDocumentCategoryByCategoryID", "Home")';
+
+        var parameter = {
+            'CategroyID': CategoryID,
+
+
+        };
+        $.post(URL, parameter, function (data, status, xhr) {
+            if (data != null) {
+                if (data.IsValid == false) {
+                    ErrorDialoge(data.Error);
+                    $("#DeleteCategoryConfirmation").dialog("close")
+                }
+                else {
+                    $("#divTreeView").html("");
+                    $("#divTreeView").html(data.HTML);
+                    $("#DeleteCategoryConfirmation").dialog("close")
+                }
+
+            }
+
+
+
+        });
+    }
+
+    function AddPatientDocument() {
+
+        var ddlType = $("#ddlAttachementType").val();
+
+
+        var Title = $("#txtTitle").val();
+        var PatientDocumentID = $("#hdPatientDocumentID").val();
+        var NAME = $("#txtDocumentName").val();
+        var DESCRIPTION = $("#txtDocumentDesc").val();
+        var DOC_CATEGORY_ID = $("#hdCategoryIDForDocument").val();/// hidden field
+        var ELECTRONIC_LINK = $("#txtDocumentElectronicLink").val();
+        var Patient_ID = $("#hdPatientLogId").val();
+        var form_data = new FormData();
+        var totalFiles = document.getElementById("DocumentFile").files.length;
+
+
+
+        if (Title == null || Title == "") {
+            alert("Please enter Title");
+            return;
+        }
+        if (NAME == null || NAME == "") {
+            alert("Please enter NAME");
+            return;
+        }
+
+        if (ddlType == 0) {
+            alert("Please select Attachement Type");
+            return;
+        }
+        if (ddlType == 1)
+        {
+            if (ELECTRONIC_LINK == null || ELECTRONIC_LINK=="") {
+                alert("Please enter Electronic link.");
+                return;
+            }
+        }
+        else {
+            if(PatientDocumentID==0) if(totalFiles ==0)
+            {
+                alert("Please select file to upload.");
+                return;
+            }
+        }
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("DocumentFile").files[i];
+
+            form_data.append("FileUpload", file);
+        }
+
+
+
+
+        form_data.append('NAME', NAME);
+        form_data.append('DESCRIPTION', DESCRIPTION);
+        form_data.append('DOC_CATEGORY_ID', DOC_CATEGORY_ID);
+        form_data.append('ELECTRONIC_LINK', ELECTRONIC_LINK);
+        form_data.append('TITLE', Title);
+        form_data.append('MenuID', DOC_CATEGORY_ID);
+        form_data.append('PATIENT_ID', Patient_ID);
+
+        form_data.append('PATIENT_DOCUMENT_ID', PatientDocumentID);
+
+
+
+        if (PatientDocumentID == 0) {
+            var URL = '@Url.Action("AddPatientDocument", "Home")';
+            $.ajax({
+                url: URL,
+                type: "POST",
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response, textStatus, jqXHR) {
+
+                    $("#PatientDocumentContent").html("");
+                    $("#PatientDocumentContent").html(response);
+                    $("#AddEditDocument").dialog("close")
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //alert("error");
+                },
+                // callback handler that will be called on completion
+                // which means, either on success or error
+                complete: function () {
+                }
+            });
+        }
+        else {
+            var URL = '@Url.Action("UpdatePatientDocument", "Home")';
+            $.ajax({
+                url: URL,
+                type: "POST",
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response, textStatus, jqXHR) {
+
+                    $("#PatientDocumentContent").html("");
+                    $("#PatientDocumentContent").html(response);
+                    $("#AddEditDocument").dialog("close")
+                    ClearAll();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //alert("error");
+                },
+                // callback handler that will be called on completion
+                // which means, either on success or error
+                complete: function () {
+                }
+            });
+        }
+
+
+
+
+    }
+
+    function DeleteDocument()
+    {
+        var PatientDocumentID = $("#hdPatientDocumentID").val();
+        var CategoryID = $("#hdCategoryIDForDocument").val();
+        var Patient_ID = $("#hdPatientLogId").val();
+        var parameter = {
+            'PatientDocumentID': PatientDocumentID,
+            'CategoryID': CategoryID,
+            'Patient_ID': Patient_ID
+
+        };
+        var URL = '@Url.Action("DeletePatientDocument", "Home")';
+        $.post(URL, parameter, function (data, status, xhr) {
+            if (data != null) {
+                $("#PatientDocumentContent").html("");
+                $("#PatientDocumentContent").html(data);
+                $("#DeleteDocumentConfirmation").dialog("close");
+                ClearAll();
+            }
+        });
+    }
+
+    function SaveCategory() {
+
+        var _MenuID = $("#_MenuID").val();
+        var _ParentID = $("#_ParentID").val();
+        var actionType = $("#actionType").val();
+        var CategoryName = $("#txtCategoryName").val();
+        var CategoryDesc = $("#txtCategoryDesc").val();
+        if (CategoryName == null || CategoryName == "")
+        {
+            alert("Please enter Name.");
+            return;
+        }
+
+
+        var parameter = {
+            '_MenuID': _MenuID,
+            '_ParentID': _ParentID,
+            'actionType': actionType,
+            'CategoryName': CategoryName,
+            'CategoryDesc': CategoryDesc
+
+        };
+        var URL = '@Url.Action("SaveCategory", "Home")';
+        $("#AddEditCategoryLoader").show();
+        $.post(URL, parameter, function (data, status, xhr) {
+            if (data != null) {
+                $("#divTreeView").html("");
+                $("#divTreeView").html(data);
+
+                $("#txtCategoryName").val("");
+                $("#txtCategoryDesc").val("");
+                $("#AddEditCategoryLoader").hide();
+                $("#AddEditCategory").dialog("close")
+            }
+
+
+
+        });
+
+    }
+
+
+    
+</script>

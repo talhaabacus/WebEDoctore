@@ -140,15 +140,6 @@
     <Content Include="Content\images\ui-icons_454545_256x240.png.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="contextmenumaster\demo\example.html" />
-    <Content Include="contextmenumaster\demo\icons\application-monitor.png" />
-    <Content Include="contextmenumaster\demo\icons\application-table.png" />
-    <Content Include="contextmenumaster\demo\icons\bin-metal.png" />
-    <Content Include="contextmenumaster\demo\icons\book-open-list.png" />
-    <Content Include="contextmenumaster\demo\icons\cassette.png" />
-    <Content Include="contextmenumaster\demo\icons\magnifier-zoom-actual-equal.png" />
-    <Content Include="contextmenumaster\demo\icons\receipt-text.png" />
-    <Content Include="contextmenumaster\demo\icons\shopping-basket.png" />
     <Content Include="contextmenumaster\demo\screenshot.png" />
     <Content Include="contextmenumaster\jquery.contextmenu.css" />
     <Content Include="contextmenumaster\jquery.contextmenu.js" />
@@ -162,11 +153,13 @@
     <Content Include="Images\delete.png" />
     <Content Include="Images\edit.png" />
     <Content Include="Images\folderIcons.png" />
+    <Content Include="Images\Loader.gif" />
     <Content Include="Images\Plus.png" />
     <Content Include="Images\Minus.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="contextmenumaster\simplecontextmenu.jquery.json" />
+    <None Include="Properties\PublishProfiles\WebEDoc Presentation.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\HomeView.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -200,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="contextmenumaster\demo\icons\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

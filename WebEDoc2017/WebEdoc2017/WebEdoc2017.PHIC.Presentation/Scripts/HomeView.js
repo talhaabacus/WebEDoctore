@@ -23,20 +23,20 @@ $(function () {
         title: 'Document Category',
         items: [
           {
-              label: 'Create Sub-Category', icon: '../WebEdoc2017.PHIC.Presentation/Images/Category.png', action: function ($trigger, e) {
+              label: 'Create Sub-Category', icon: '../../../../Images/Category.png', action: function ($trigger, e) {
                   var triggerElement = $trigger.currentTarget;
                   getSelectedNodeValue(triggerElement, "SubCategory");
               }
           },
           {
-              label: 'Create Sibling', icon: '../WebEdoc2017.PHIC.Presentation/Images/Category.png', action: function ($trigger, e) {
+              label: 'Create Sibling', icon: '../../../../Images/Category.png', action: function ($trigger, e) {
 
                   var triggerElement = $trigger.currentTarget;
                   getSelectedNodeValue(triggerElement, "Sibling");
               }
           },
           {
-              label: 'Edit', icon: '../WebEdoc2017.PHIC.Presentation/Images/edit.png', action: function ($trigger, e) {
+              label: 'Edit', icon: '../../../../Images/edit.png', action: function ($trigger, e) {
                   var triggerElement = $trigger.currentTarget;
                   getSelectedNodeValue(triggerElement, "Edit");
                   //var Self = $trigger.currentTarget;
@@ -51,7 +51,7 @@ $(function () {
           },
 
           {
-              label: 'Delete', icon: '../WebEdoc2017.PHIC.Presentation/Images/delete.png', action: function ($trigger, e) {
+              label: 'Delete', icon: '../../../../Images/delete.png', action: function ($trigger, e) {
 
                   var triggerElement = $trigger.currentTarget;
                   getSelectedNodeValue(triggerElement, "Delete");
@@ -67,6 +67,10 @@ $(function () {
 
 
 });
+
+
+
+
 
 
 
@@ -108,34 +112,41 @@ function getSelectedNodeValue(CurrentID, type) {
 
 }
 
-function GetPatientDocument(MenuID, ParentID) {
 
 
-    var par = {
-        'MenuID': MenuID,
-        'ParentID': ParentID,
-    };
-
-    $.ajax({
-        url: "Home/getPatientDocumentByCategoryID",
-        type: "POST",
-        data: par,
-        success: function (response, textStatus, jqXHR) {
-
-            $("#PatientDocumentContent").html("");
-            $("#PatientDocumentContent").html(response);
-
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("error");
-        },
-        // callback handler that will be called on completion
-        // which means, either on success or error
-        complete: function () {
-        }
-    });
+function ErrorDialoge(Error)
+{
+    $("#Error").html("");
+    $("#Error").html(Error);
+    $('#ErrorModelPop').dialog('open');
 }
 
+$(function () {
+    $('#detailID')
+      .dialog({
+          autoOpen: true,
+          width: 600,
+          height: 400,
+          position: 'center',
+          resizable: true,
+          draggable: true
+      });
+});
+
+$(function () {
+    $('#ErrorModelPop').dialog({
+        title: "Error",
+        autoOpen: false,
+        width: 400,
+        modal: true,
+        height: 150,
+        buttons: {
+            
+            "Close": function () { $(this).dialog("close"); }
+        }
+
+    });
+});
 
 
 $(function () {
@@ -156,6 +167,43 @@ $(function () {
 });
 
 $(function () {
+    $('#AddEditDocument').dialog({
+        title: "Add/Edit Document",
+        autoOpen: false,
+        width: 700,
+        modal: true,
+        height: 300,
+        buttons: {
+            "SAVE": function () {
+                AddPatientDocument();
+            },
+            "Close": function () { $(this).dialog("close"); }
+        }
+
+    });
+});
+$(function () {
+    $('#DeleteDocumentConfirmation').dialog({
+        title: "Delete Document Confirmation",
+        autoOpen: false,
+        width: 400,
+        modal: true,
+        height: 150,
+        buttons: {
+            "Delete": function () {
+                DeleteDocument();
+
+            },
+            "Close": function () { $(this).dialog("close"); }
+        }
+
+    });
+});
+
+
+
+
+$(function () {
     $('#AddEditCategory').dialog({
         title: "Add/Edit",
         autoOpen: false,
@@ -172,61 +220,108 @@ $(function () {
     });
 });
 
-function SaveCategory() {
-
-    var _MenuID = $("#_MenuID").val();
-    var _ParentID = $("#_ParentID").val();
-    var actionType = $("#actionType").val();
-    var CategoryName = $("#txtCategoryName").val();
-    var CategoryDesc = $("#txtCategoryDesc").val();
-
-    var URL = 'Home/SaveCategory';
-
-    var parameter = {
-        '_MenuID': _MenuID,
-        '_ParentID': _ParentID,
-        'actionType': actionType,
-        'CategoryName': CategoryName,
-        'CategoryDesc': CategoryDesc
-
-    };
-    $.post(URL, parameter, function (data, status, xhr) {
-        if (data != null) {
-            $("#divTreeView").html("");
-            $("#divTreeView").html(data);
-
-            $("#txtCategoryName").val("");
-            $("#txtCategoryDesc").val("");
-            $("#AddEditCategory").dialog("close")
-        }
 
 
 
-    })
+
+
+function AddDocument()
+{
+    ClearAll();
+    $('#AddEditDocument').dialog('option', 'title', 'Add Document');
+    $('#AddEditDocument').dialog('open');
+}
+
+
+
+
+
+
+
+function setDateToPatientDocument(id)
+{
+    ClearAll();
+    var Json = jQuery.parseJSON($("#hdPatientDocument-" + id).val());
+   
+    if (Json.ELECTRONIC_LINK != null && Json.ELECTRONIC_LINK != "") {
+        $("#ddlAttachementType").val(1);
+        $("#txtDocumentElectronicLink").val(Json.ELECTRONIC_LINK);
+        $("#txtDocumentElectronicLink").removeAttr("disabled");
+    }
+    else {
+        $("#ddlAttachementType").val(2);
+        $("#DocumentFile").removeAttr("disabled");
+    }
+    // alert(Json.IBCCode);
+    $("#txtTitle").val(Json.TITLE);
+    $("#hdPatientDocumentID").val(Json.PATIENT_DOCUMENT_ID);
+    $("#txtDocumentName").val(Json.NAME);
+    $("#txtDocumentDesc").val(Json.DESCRIPTION);
+    $("#txtDocumentCategory").val(Json.DOC_CATEGORY_ID);
+   
+    $('#AddEditDocument').dialog('option', 'title', 'Edit Document');
+    $('#AddEditDocument').dialog('open');
+    
+}
+
+
+function DeletePatientDocument(id)
+{
+    $("#hdPatientDocumentID").val(id);
+    $("#DeleteDocumentConfirmation").dialog('open');
+}
+
+function ClearAll()
+{
+    $("#ddlAttachementType").val(0);
+    $("#DocumentFile").val("");
+    $("#txtTitle").val("");
+    $("#txtDocumentName").val("");
+    $("#txtDocumentDesc").val("");
+    $("#txtDocumentCategory").val("");
+    $("#txtDocumentElectronicLink").val("");
+    $("#hdPatientDocumentID").val("0");
+   
 
 }
 
 
-function DeleteCategory() {
-    var CategoryID = $("#_MenuID").val();
+function TypeOfDocument()
+{
 
-    var URL = 'Home/DeleteDocumentCategoryByCategoryID';
+    var ddlType = $("#ddlAttachementType").val();
+    if(ddlType==0)
+    {
+        $("#txtDocumentElectronicLink").prop('disabled', true);
 
-    var parameter = {
-        'CategroyID': CategoryID,
+        $("#DocumentFile").prop('disabled', true);
+        $("#DocumentFile").val("");
+        $("#txtDocumentElectronicLink").val("");
+    }
+    else  if(ddlType==1)
+    {
+        $("#txtDocumentElectronicLink").removeAttr('disabled');
+        $("#DocumentFile").prop('disabled', true);
+        $("#DocumentFile").val("");
+        $("#txtDocumentElectronicLink").val("");
+        
+    }
+    else
+    {
+        $("#txtDocumentElectronicLink").prop('disabled', true);
+      
+        $("#DocumentFile").removeAttr('disabled');
+        $("#DocumentFile").val("");
+        $("#txtDocumentElectronicLink").val("");
+    }
+}
 
+function ViewElectronicFileLink(path) {
 
-    };
-    $.post(URL, parameter, function (data, status, xhr) {
-        if (data != null) {
-            $("#divTreeView").html("");
-            $("#divTreeView").html(data);
-            $("#DeleteCategoryConfirmation").dialog("close")
-        }
+    debugger;
+    // window.location = path;
+    window.open(path);
 
-
-
-    })
 }
 jQuery.browser = {};
 (function () {

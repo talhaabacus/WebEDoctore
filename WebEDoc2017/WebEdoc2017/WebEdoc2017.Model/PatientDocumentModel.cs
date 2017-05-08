@@ -18,7 +18,7 @@ namespace WebEdoc2017.Models
 
         public string   ELECTRONIC_LINK {get;set;}
         public string   PATH {get;set;}
-        public Int64   PATIENT_ID {get;set;}
+        public string   PATIENT_ID {get;set;}
         public string EXTENSION { get; set; }
 
 

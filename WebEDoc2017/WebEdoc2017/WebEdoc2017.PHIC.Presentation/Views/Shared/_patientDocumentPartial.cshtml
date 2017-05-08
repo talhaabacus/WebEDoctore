@@ -1,5 +1,5 @@
 ﻿@model List<WebEdoc2017.Models.PatientDocumentModel>
-
+@using System.Text
 <style>
    
 
@@ -8,68 +8,84 @@
         text-wrap: normal;
     }
 </style>
+<input type="hidden" id="hdCategoryIDForDocument" value="@ViewBag.CategoryID" />
 <div style="margin-right:0px">
-    <img src="../WebEdoc2017.PHIC.Presentation/Images/add.png" /><a href="#">Add Document</a></div>
+    <table><tr><td></td></tr></table><img src="~/Images/add.png" /><a  href="#" onclick="AddDocument();">Add Document</a></div>
 <table width="100%">
     <thead class="th">
         <tr>
-            <td>
-                Doc ID
-            </td>
+           
             <td>
                 Name
             </td>
             <td>
                 Description
             </td>
-            <td>
-                Category
-            </td>
+            <td>Title</td>
             <td>
                 Electronic Link
             </td>
             <td>
+                Path
+            </td>
+            <td>
                  Extension
             </td>
+           
             <td>
-                 Path
+                
             </td>
-            <td>
-                PatientID
-            </td>
+            <td></td>
         </tr>
     </thead>
     <tbody>
         @if (Model.Count > 0)
         {
+
             int count=0;
             foreach (var item in Model)
             {
+                StringBuilder jsonStringPatientDocument = new StringBuilder();
+                jsonStringPatientDocument.Append(" { ");
+                jsonStringPatientDocument.Append("\"PATIENT_DOCUMENT_ID\": \"" + @item.PATIENT_DOCUMENT_ID + "\",");
+                jsonStringPatientDocument.Append("\"NAME\": \"" + @item.NAME + "\",");
+                jsonStringPatientDocument.Append("\"DESCRIPTION\": \"" + @item.DESCRIPTION + "\",");
+                jsonStringPatientDocument.Append("\"DOC_CATEGORY_ID\": \"" + @item.DOC_CATEGORY_ID + "\",");
+                jsonStringPatientDocument.Append("\"ELECTRONIC_LINK\": \"" + @item.ELECTRONIC_LINK + "\",");
+                jsonStringPatientDocument.Append("\"TITLE\": \"" + @item.TITLE + "\",");
+                jsonStringPatientDocument.Append("\"PATH\": \"" + 0 + "\",");
+                jsonStringPatientDocument.Append("\"EXTENSION\": \"" + @item.EXTENSION + "\",");
+                jsonStringPatientDocument.Append("\"PATIENT_ID\": \"" + @item.PATIENT_ID + "\"");
+
+
+                jsonStringPatientDocument.Append("}");
                 count++;
                 if(count%2==0)
-                { 
+                {
                 <tr class="tr0">
-                    <td>@item.PATIENT_DOCUMENT_ID</td>
+                   
                     <td>@item.NAME</td>
                     <td>@item.DESCRIPTION</td>
-                    <td>@item.DOC_CATEGORY_ID</td>
-                    <td><a href="">@item.ELECTRONIC_LINK</a></td>
-                    <td><a href="">@item.PATH</a></td>
-                    <td><a href="">@item.EXTENSION</a></td>
-                    <td><a href="">@item.PATIENT_ID</a></td>
+                   <td>@item.TITLE</td>
+                    <td><a href="#" onclick="ViewElectronicFileLink('@item.ELECTRONIC_LINK')" >@item.ELECTRONIC_LINK</a></td>
+                    <td> <a href="@Url.Action("DownLoadPatientUploadDocument", "Home", new { PatientDocumentID = item.PATIENT_DOCUMENT_ID })">@item.PATH</a></td>
+                    <td>@item.EXTENSION</td>
+                    <td><a href="#" onclick="setDateToPatientDocument('@item.PATIENT_DOCUMENT_ID')"><img src="~/Images/edit.png" width="15px" />Edit</a><input type="hidden" id="hdPatientDocument-@item.PATIENT_DOCUMENT_ID" value="@jsonStringPatientDocument.ToString()" /></td>
+                    <td><a href="#" onclick="DeletePatientDocument('@item.PATIENT_DOCUMENT_ID');"><img src="~/Images/delete.png" width="15px" />Delete</a></td>
                 </tr>
                 }
                 else
                 {
                     <tr class="tr1">
-                        <td>@item.PATIENT_DOCUMENT_ID</td>
+                      
                         <td>@item.NAME</td>
                         <td>@item.DESCRIPTION</td>
-                        <td>@item.DOC_CATEGORY_ID</td>
-                        <td><a href="">@item.ELECTRONIC_LINK</a></td>
-                        <td><a href="">@item.PATH</a></td>
-                        <td><a href="">@item.EXTENSION</a></td>
-                        <td><a href="">@item.PATIENT_ID</a></td>
+                        <td>@item.TITLE</td>
+                        <td><a href="#"  onclick="ViewElectronicFileLink('@item.ELECTRONIC_LINK')" class="ElectronicLine">@item.ELECTRONIC_LINK</a></td>
+                        <td><a href="@Url.Action("DownLoadPatientUploadDocument", "Home", new { PatientDocumentID = item.PATIENT_DOCUMENT_ID })" >@item.PATH</a></td>
+                        <td>@item.EXTENSION</td>
+                        <td><a href="#" onclick="setDateToPatientDocument('@item.PATIENT_DOCUMENT_ID');"><img src="~/Images/edit.png" width="15px"  />Edit</a><input type="hidden" id="hdPatientDocument-@item.PATIENT_DOCUMENT_ID" value="@jsonStringPatientDocument.ToString()" /></td>
+                        <td><a href="#" onclick="DeletePatientDocument('@item.PATIENT_DOCUMENT_ID');"><img src="~/Images/delete.png" width="15px" />Delete</a></td>
                     </tr>
                 }
             }

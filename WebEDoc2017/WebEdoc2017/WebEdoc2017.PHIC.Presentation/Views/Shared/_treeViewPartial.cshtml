@@ -4,11 +4,12 @@
 
 <link href="~/Content/HomeView.css" rel="stylesheet" />
 
+
 <div>
     @if (Model != null )
     {
         <ul>
-            @GetTreeView(Model, Model.FirstOrDefault().Parent_ID)
+            @GetTreeView(Model, Model.OrderBy(x=>x.Parent_ID).ToList().FirstOrDefault().Parent_ID)
         </ul>
     }
 
@@ -32,7 +33,7 @@ foreach (var i in siteMenu.Where(x => x.Parent_ID.Equals(ParentID)))
             }
 
             <span id="te-@i.DOC_CATEGORY_ID" class="selector">
-                <a class="abc" href="javascript:GetPatientDocument('@i.DOC_CATEGORY_ID','@i.Parent_ID');">@i.Name
+                <a class="abc"  href="#" onclick="GetPatientDocument('@i.DOC_CATEGORY_ID','@i.Parent_ID');">@i.Name
                  <input name="MenuID" class="hdMenuID" type="hidden" value="@i.DOC_CATEGORY_ID" />
                 <input name="ParentID" class="hdParentID" type="hidden" value="@i.Parent_ID" />
                     <input name="Name" class="hdName" type="hidden" value="@i.Name" />
