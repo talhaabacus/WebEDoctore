@@ -156,6 +156,7 @@
     <Content Include="Images\Loader.gif" />
     <Content Include="Images\Plus.png" />
     <Content Include="Images\Minus.png" />
+    <Content Include="Images\Search.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="contextmenumaster\simplecontextmenu.jquery.json" />
@@ -190,6 +191,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_treeViewPartial.cshtml" />
     <Content Include="Views\Shared\_patientDocumentPartial.cshtml" />
+    <Content Include="Views\Shared\DropDownList\_ddlDocumentCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

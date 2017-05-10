@@ -121,6 +121,30 @@ function ErrorDialoge(Error)
     $('#ErrorModelPop').dialog('open');
 }
 
+
+function OpenSearchDialoge()
+{
+    $('#SearchDialog')
+      .dialog("open");
+}
+
+
+$(function () {
+    $('#SearchDialog')
+      .dialog({
+          title:"Search Patient Document",
+          autoOpen: false,
+          width: 700,
+          modal: true,
+          height: 300,
+          buttons: {
+              "Search": function () {
+                  SearchDocument();
+              },
+              "Close": function () { $(this).dialog("close"); }
+          }
+      });
+});
 $(function () {
     $('#detailID')
       .dialog({
@@ -170,9 +194,9 @@ $(function () {
     $('#AddEditDocument').dialog({
         title: "Add/Edit Document",
         autoOpen: false,
-        width: 700,
+        width: 800,
         modal: true,
-        height: 300,
+        height: 400,
         buttons: {
             "SAVE": function () {
                 AddPatientDocument();
@@ -247,17 +271,21 @@ function setDateToPatientDocument(id)
         $("#ddlAttachementType").val(1);
         $("#txtDocumentElectronicLink").val(Json.ELECTRONIC_LINK);
         $("#txtDocumentElectronicLink").removeAttr("disabled");
+        $("#DocumentFile").prop("disabled", true);
     }
     else {
         $("#ddlAttachementType").val(2);
         $("#DocumentFile").removeAttr("disabled");
+        $("#txtDocumentElectronicLink").prop("disabled",true);
     }
+
+    $("#ddlCategory").val(Json.DOC_CATEGORY_ID);
     // alert(Json.IBCCode);
     $("#txtTitle").val(Json.TITLE);
     $("#hdPatientDocumentID").val(Json.PATIENT_DOCUMENT_ID);
     $("#txtDocumentName").val(Json.NAME);
     $("#txtDocumentDesc").val(Json.DESCRIPTION);
-    $("#txtDocumentCategory").val(Json.DOC_CATEGORY_ID);
+    ///$("#txtDocumentCategory").val(Json.DOC_CATEGORY_ID);
    
     $('#AddEditDocument').dialog('option', 'title', 'Edit Document');
     $('#AddEditDocument').dialog('open');
@@ -265,9 +293,10 @@ function setDateToPatientDocument(id)
 }
 
 
-function DeletePatientDocument(id)
+function DeletePatientDocument(id,Category)
 {
     $("#hdPatientDocumentID").val(id);
+    $("#hdCategoryIDForDocument").val(Category);
     $("#DeleteDocumentConfirmation").dialog('open');
 }
 
@@ -293,7 +322,6 @@ function TypeOfDocument()
     if(ddlType==0)
     {
         $("#txtDocumentElectronicLink").prop('disabled', true);
-
         $("#DocumentFile").prop('disabled', true);
         $("#DocumentFile").val("");
         $("#txtDocumentElectronicLink").val("");
@@ -316,13 +344,11 @@ function TypeOfDocument()
     }
 }
 
-function ViewElectronicFileLink(path) {
-
-    debugger;
-    // window.location = path;
-    window.open(path);
-
+function ViewElectronicFileLink(path)
+{
+    window.open(path, "_blank");
 }
+
 jQuery.browser = {};
 (function () {
     jQuery.browser.msie = false;

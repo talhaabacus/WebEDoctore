@@ -17,7 +17,7 @@
     }
 
     .treeview ul {
-        font: 14px Arial,Sans-Serif;
+       font-size: 14px;FONT-FAMILY: Arial;
         margin: 0px;
         padding-left: 20px;
         list-style: none;
@@ -32,7 +32,7 @@
 
         .treeview li a {
             padding: 0px;
-            font-size: 11px;
+          font-size: 14px;FONT-FAMILY: Arial;
             /* display: inline-block;*/
             text-decoration: none;
             width: 150px;

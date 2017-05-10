@@ -1,7 +1,7 @@
 ﻿@model WebEdoc2017.ViewModels.HomeViewModel
 @using System.Data; 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "PHIC";
 }
 
 <link href="~/Content/jquery-ui.css" rel="stylesheet" />
@@ -10,14 +10,34 @@
 
 <div>
     <input id="hdPatientLogId" type="hidden" value="@ViewBag.PatientLogID" />
+    <input id="hdLoginType" type="hidden" value="@ViewBag.LogInType" />
+
+
     <div style="clear:both;">
         
-        <div id="divTreeView" class="treeview" style="width:20%;overflow-x:scroll; height:500px;float:left;margin-top:0px; background-color:#f7f7f7; ">
-           
-            @Html.Partial("_treeViewPartial", Model.lstDocumentCategory)
-        </div>
-        <div id="PatientDocumentContent" style="width:80%;float:right;margin-top:0px;  ">
+        <div id="" class="treeview" style="width:20%;overflow-x:scroll; height:700px;float:left;margin-top:2px; ">
+           <br />
+          
+           <table width="100%">
+               <thead>
+                  
+                   <tr><th class="th" style="text-align:center;" >Category</th></tr>
+               </thead>
+               <tbody>
+                   <tr>
+                       <td>
+                           <div id="divTreeView">
+                               @Html.Partial("_treeViewPartial", Model.lstDocumentCategory)
+                           </div>
+                       </td>
+                   </tr>
 
+               </tbody>
+           </table>
+           
+        </div>
+        <div id="PatientDocumentContent" style="width:80%;float:right;margin-top:0px; ">
+            @Html.Partial("_patientDocumentPartial", Model.lstPatientDocument)
         </div>
 
         <div id="AddEditCategory">
@@ -59,7 +79,7 @@
 
       
         <div id="AddEditDocument">
-            <table width="100%" style="font-size:10px;" >
+            <table width="100%"  >
                 <tr>
                     <tr>
                         <td><input type="hidden" id="hdPatientDocumentID" value="0"/></td>
@@ -73,11 +93,10 @@
                     <td valign="top"><input id="txtDocumentName" type="text" class="form-control" required /></td>
                 </tr>
                 <tr>
+                    <td valign="top">Category</td>
+                    <td valign="top"> <div id="divCategory">@Html.Partial("DropDownList/_ddlDocumentCategory", Model.lstDocumentCategory)  </div></td>
                     <td valign="top">Attachement Type</td>
                     <td valign="top"> <select id="ddlAttachementType" class="form-control" onchange="TypeOfDocument()"><option value="0">--Select--</option><option value="1">Electronic Line</option><option value="2">File Upload</option></select>@* *@</td>
-                    <td valign="top">File</td>
-                    <td valign="top"><input disabled type="file" class="form-control" id="DocumentFile" name="DocumentFile" /></td>
-                  
                 </tr>
                 <tr>
                     <td valign="top">
@@ -86,8 +105,14 @@
                     <td valign="top">
                         <input disabled id="txtDocumentElectronicLink" type="text" class="form-control" />
                     </td>
+                    <td valign="top">File</td>
+                    <td valign="top"><input disabled type="file" class="form-control" id="DocumentFile" name="DocumentFile" /></td>
+                  
+                </tr>
+                <tr>
+                  
                     <td valign="top">Description</td>
-                    <td colspan="3" valign="top"><textarea rows="3" cols="3" id="txtDocumentDesc" type="text" class="form-control" required></textarea></td>
+                    <td colspan="3" valign="top"><textarea placeholder="Maximum Length 4000" maxlength="4000" rows="3" cols="3" id="txtDocumentDesc" type="text" class="form-control" required></textarea></td>
                 </tr>
                 <tr>
                    
@@ -96,17 +121,53 @@
 
         </div>
 
+
+        <div id="SearchDialog" >
+          <table width="100%" >
+                <tr>
+
+
+                <tr>
+                    <td valign="top">Title</td>
+                    <td valign="top">  <input type="text" class="form-control" id="Title" /></td>
+                    <td valign="top">
+                        Name
+                    </td>
+                    <td valign="top"><input id="DocumentName" type="text" class="form-control" required /></td>
+                </tr>
+                <tr>
+                    <td valign="top">Category</td>
+                    <td valign="top">@Html.DropDownListFor(Model => Model.lstDocumentCategory, new SelectList(Model.lstDocumentCategory, "DOC_CATEGORY_ID","Name"),new { @id="ddlSearchCategory",@class="form-control"}) </td>
+                    <td valign="top">
+                        Description
+                    </td>
+                    <td valign="top"><textarea placeholder="Maximum Length 4000" maxlength="4000" rows="3" cols="3" id="SearchDescription" type="text" class="form-control" required></textarea></td>
+                   
+                </tr>
+               
+                <tr></tr>
+            </table>
+         
+
+        </div>
+
     </div>
 </div>
 
 <script>
-function GetPatientDocument(MenuID, ParentID) {
+    function GetPatientDocument(MenuID, ParentID) {
+
+       
+        $("#hdCategoryIDForDocument").val(MenuID);
+        var LoginType = $("#hdLoginType").val();
+        $("#ddlCategory").val("0");
     var Patient_ID = $("#hdPatientLogId").val();
 
     var par = {
         'MenuID': MenuID,
         'ParentID': ParentID,
-        'Patient_ID': Patient_ID
+        'Patient_ID': Patient_ID,
+        'LoginType': LoginType
     };
     var URL = '@Url.Action("getPatientDocumentByCategoryID", "Home")';
     $("#divTreeViewLoader").show();
@@ -119,7 +180,13 @@ function GetPatientDocument(MenuID, ParentID) {
             $("#PatientDocumentContent").html("");
             $("#PatientDocumentContent").html(response);
             $("#divTreeViewLoader").hide();
+            var LoginType = $("#hdLoginType").val();
+            if (LoginType == "Doctor") {
+                $("#ddlCategory").val(MenuID).prop("disabled", true);
+            }
 
+       
+           
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -152,6 +219,11 @@ function GetPatientDocument(MenuID, ParentID) {
                 else {
                     $("#divTreeView").html("");
                     $("#divTreeView").html(data.HTML);
+
+                    $("#divCategory").html("");
+                    $("#divCategory").html(data.ddlDocumentCategory);
+
+
                     $("#DeleteCategoryConfirmation").dialog("close")
                 }
 
@@ -165,13 +237,15 @@ function GetPatientDocument(MenuID, ParentID) {
     function AddPatientDocument() {
 
         var ddlType = $("#ddlAttachementType").val();
-
+        var LoginType = $("#hdLoginType").val();
 
         var Title = $("#txtTitle").val();
         var PatientDocumentID = $("#hdPatientDocumentID").val();
         var NAME = $("#txtDocumentName").val();
         var DESCRIPTION = $("#txtDocumentDesc").val();
-        var DOC_CATEGORY_ID = $("#hdCategoryIDForDocument").val();/// hidden field
+        // var DOC_CATEGORY_ID = $("#hdCategoryIDForDocument").val();/// hidden field
+        var DOC_CATEGORY_ID = $("#ddlCategory").val();/// hidden field
+
         var ELECTRONIC_LINK = $("#txtDocumentElectronicLink").val();
         var Patient_ID = $("#hdPatientLogId").val();
         var form_data = new FormData();
@@ -223,6 +297,7 @@ function GetPatientDocument(MenuID, ParentID) {
         form_data.append('TITLE', Title);
         form_data.append('MenuID', DOC_CATEGORY_ID);
         form_data.append('PATIENT_ID', Patient_ID);
+        form_data.append('LoginType', LoginType);
 
         form_data.append('PATIENT_DOCUMENT_ID', PatientDocumentID);
 
@@ -242,6 +317,8 @@ function GetPatientDocument(MenuID, ParentID) {
                     $("#PatientDocumentContent").html("");
                     $("#PatientDocumentContent").html(response);
                     $("#AddEditDocument").dialog("close")
+
+                    $("#ddlCategory").val("0");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     //alert("error");
@@ -266,6 +343,7 @@ function GetPatientDocument(MenuID, ParentID) {
                     $("#PatientDocumentContent").html("");
                     $("#PatientDocumentContent").html(response);
                     $("#AddEditDocument").dialog("close")
+                    $("#ddlCategory").val("0");
                     ClearAll();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -288,10 +366,15 @@ function GetPatientDocument(MenuID, ParentID) {
         var PatientDocumentID = $("#hdPatientDocumentID").val();
         var CategoryID = $("#hdCategoryIDForDocument").val();
         var Patient_ID = $("#hdPatientLogId").val();
+        var LoginType = $("#hdLoginType").val();
+        var hdCategoryID = $("#hdCategoryIDForDocument").val();
+        debugger;
         var parameter = {
             'PatientDocumentID': PatientDocumentID,
             'CategoryID': CategoryID,
-            'Patient_ID': Patient_ID
+            'Patient_ID': Patient_ID,
+            'LoginType': LoginType,
+            'SelectedCategoryID': hdCategoryID
 
         };
         var URL = '@Url.Action("DeletePatientDocument", "Home")';
@@ -303,6 +386,8 @@ function GetPatientDocument(MenuID, ParentID) {
                 ClearAll();
             }
         });
+
+      
     }
 
     function SaveCategory() {
@@ -332,7 +417,9 @@ function GetPatientDocument(MenuID, ParentID) {
         $.post(URL, parameter, function (data, status, xhr) {
             if (data != null) {
                 $("#divTreeView").html("");
-                $("#divTreeView").html(data);
+                $("#divTreeView").html(data.treeView);
+                $("#divCategory").html("");
+                $("#divCategory").html(data.ddlCategory);
 
                 $("#txtCategoryName").val("");
                 $("#txtCategoryDesc").val("");
@@ -347,5 +434,45 @@ function GetPatientDocument(MenuID, ParentID) {
     }
 
 
-    
+
+    function SearchDocument()
+    {
+        var Title = $("#Title").val();
+        var Name = $("#DocumentName").val();
+        var CategoryID = $("#ddlSearchCategory").val();
+        var PatientID = $("#hdPatientLogId").val();
+        var Description = $("#SearchDescription").val();
+        
+
+        
+
+        var Parameter = {
+            'TITLE': Title,
+            'NAME': Name,
+            'DOC_CATEGORY_ID': CategoryID,
+            'PATIENT_ID': PatientID,
+            'DESCRIPTION': Description
+           
+
+        };
+        var URL = '@Url.Action("SearchPatientDocument", "Home")';
+        $.post(URL, Parameter, function (data) {
+            $("#PatientDocumentContent").html("");
+            $("#PatientDocumentContent").html(data);
+            $("#SearchDialog").dialog("close");
+
+        });
+    }
+    var LoginType = $("#hdLoginType").val();
+    if(LoginType=="Doctor")
+    {
+        $("#divTreeView").show();
+    }
+        
+    else  {
+        $("#divTreeView").find("span").removeClass("selector");
+    }
+   
+   
+    $("#ddlSearchCategory").prepend("<option value='0' selected='selected'>-Select-</option>");
 </script>

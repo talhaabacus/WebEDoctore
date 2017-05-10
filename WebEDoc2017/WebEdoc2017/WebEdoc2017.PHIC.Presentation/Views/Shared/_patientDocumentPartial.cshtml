@@ -10,7 +10,7 @@
 </style>
 <input type="hidden" id="hdCategoryIDForDocument" value="@ViewBag.CategoryID" />
 <div style="margin-right:0px">
-    <table><tr><td></td></tr></table><img src="~/Images/add.png" /><a  href="#" onclick="AddDocument();">Add Document</a></div>
+    <table><tr><td></td></tr></table><a href="#" onclick="OpenSearchDialoge()"><img src="~/Images/Search.png" width="2%" height="5%" />Search Document</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Images/add.png" /><a href="#" onclick="AddDocument();">Add Document</a> </div>
 <table width="100%">
     <thead class="th">
         <tr>
@@ -68,10 +68,14 @@
                     <td>@item.DESCRIPTION</td>
                    <td>@item.TITLE</td>
                     <td><a href="#" onclick="ViewElectronicFileLink('@item.ELECTRONIC_LINK')" >@item.ELECTRONIC_LINK</a></td>
-                    <td> <a href="@Url.Action("DownLoadPatientUploadDocument", "Home", new { PatientDocumentID = item.PATIENT_DOCUMENT_ID })">@item.PATH</a></td>
+                    @if (item.PATH != null && item.PATH != "")
+                    {<td> <a href="@Url.Action("DownLoadPatientUploadDocument", "Home", new { PatientDocumentID = item.PATIENT_DOCUMENT_ID })">DownLoad</a></td>
+                    }
+                    else
+                    { <td></td>}
                     <td>@item.EXTENSION</td>
                     <td><a href="#" onclick="setDateToPatientDocument('@item.PATIENT_DOCUMENT_ID')"><img src="~/Images/edit.png" width="15px" />Edit</a><input type="hidden" id="hdPatientDocument-@item.PATIENT_DOCUMENT_ID" value="@jsonStringPatientDocument.ToString()" /></td>
-                    <td><a href="#" onclick="DeletePatientDocument('@item.PATIENT_DOCUMENT_ID');"><img src="~/Images/delete.png" width="15px" />Delete</a></td>
+                    <td><a href="#" onclick="DeletePatientDocument('@item.PATIENT_DOCUMENT_ID','@item.DOC_CATEGORY_ID');"><img src="~/Images/delete.png" width="15px" />Delete</a></td>
                 </tr>
                 }
                 else
@@ -82,10 +86,16 @@
                         <td>@item.DESCRIPTION</td>
                         <td>@item.TITLE</td>
                         <td><a href="#"  onclick="ViewElectronicFileLink('@item.ELECTRONIC_LINK')" class="ElectronicLine">@item.ELECTRONIC_LINK</a></td>
-                        <td><a href="@Url.Action("DownLoadPatientUploadDocument", "Home", new { PatientDocumentID = item.PATIENT_DOCUMENT_ID })" >@item.PATH</a></td>
+                        @if (item.PATH != null && item.PATH != "")
+                        {
+                        <td> <a href="@Url.Action("DownLoadPatientUploadDocument", "Home", new { PatientDocumentID = item.PATIENT_DOCUMENT_ID })">DownLoad</a></td>
+                        }
+                        else
+                        {
+                        <td></td>}
                         <td>@item.EXTENSION</td>
                         <td><a href="#" onclick="setDateToPatientDocument('@item.PATIENT_DOCUMENT_ID');"><img src="~/Images/edit.png" width="15px"  />Edit</a><input type="hidden" id="hdPatientDocument-@item.PATIENT_DOCUMENT_ID" value="@jsonStringPatientDocument.ToString()" /></td>
-                        <td><a href="#" onclick="DeletePatientDocument('@item.PATIENT_DOCUMENT_ID');"><img src="~/Images/delete.png" width="15px" />Delete</a></td>
+                        <td><a href="#" onclick="DeletePatientDocument('@item.PATIENT_DOCUMENT_ID','@item.DOC_CATEGORY_ID');"><img src="~/Images/delete.png" width="15px" />Delete</a></td>
                     </tr>
                 }
             }

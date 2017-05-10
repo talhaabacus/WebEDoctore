@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
@@ -14,30 +15,57 @@ namespace WebEdoc2017.Controllers
     public class HomeController : BaseController
     {
         [HttpGet]
-        public ActionResult Index(string patient_id, string Visit_key, string Pid)
+        public ActionResult Index(string patient_id, string LoginType, string Pid)
         {
           
             HomeViewModel model = new HomeViewModel();
-            PHICService.PatientData data = new PHICService.PatientData();
-           // PHICService.PatientData data = new PHICService.PatientData();
+            PHICService.PatientData documentCategory = new PHICService.PatientData();
+            PHICService.PatientData patientDocumentdata = new PHICService.PatientData();
+
+            // PHICService.PatientData data = new PHICService.PatientData();
             using (var service=new PHICService.PHICService())
             {
-                data = service.GetDocumentCategory();
-              
+                documentCategory = service.GetDocumentCategory();
+                patientDocumentdata = service.GetPatientDocumentByPatientID(patient_id);
+
+
             }
-            if (data.dt.Rows.Count > 0)
+            if (documentCategory.dt.Rows.Count > 0)
             {
-                var categoryRecord = from myRow in data.dt.AsEnumerable() select myRow;
-                if (data.dt.Rows.Count > 0)
+                var categoryRecord = from myRow in documentCategory.dt.AsEnumerable() select myRow;
+                if (documentCategory.dt.Rows.Count > 0)
                 {
-                    foreach (DataRow item in data.dt.Rows)
+                    foreach (DataRow item in documentCategory.dt.Rows)
                     {
                         model.lstDocumentCategory.Add(new DocumentCategoryModel { DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()), Name = item["Name"].ToString(), Description = item["Description"].ToString(), Parent_ID = Convert.ToInt64(item["Parent_ID"]) });
                     }
                 }
             }
+            if(patientDocumentdata.dt.Rows.Count >0)
+            {
+                foreach (DataRow item in patientDocumentdata.dt.Rows)
+                {
+
+                    model.lstPatientDocument.Add(new PatientDocumentModel
+                    {
+                        PATIENT_DOCUMENT_ID = Convert.ToInt64(item["PATIENT_DOCUMENT_ID"])
+                      ,
+                        NAME = item["Name"].ToString(),
+                        DESCRIPTION = item["Description"].ToString(),
+                        DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()),
+                        ELECTRONIC_LINK = item["ELECTRONIC_LINK"].ToString(),
+                        PATH = item["PATH"].ToString(),
+                        PATIENT_ID = item["Patient_ID"].ToString(),
+                        EXTENSION = item["EXTENSION"].ToString(),
+                        TITLE = item["TITLE"].ToString()
+                    });
+                }
+            }
+
+
            
             ViewBag.PatientLogID = patient_id;
+            ViewBag.LogInType = LoginType;
 
             return View(model);
         }
@@ -45,7 +73,7 @@ namespace WebEdoc2017.Controllers
         #region PatientDocument By Category.........
 
         [HttpPost]
-        public ActionResult getPatientDocumentByCategoryID(Int64 MenuID,string Patient_ID)
+        public ActionResult getPatientDocumentByCategoryID(Int64 MenuID,string Patient_ID,string LoginType)
         {
             List<PatientDocumentModel> model = new List<PatientDocumentModel>();
             string returnData = string.Empty;
@@ -75,6 +103,7 @@ namespace WebEdoc2017.Controllers
                     });
                 }
                 ViewBag.CategoryID = MenuID;
+                ViewBag.LoginType = LoginType;
                 returnData = RenderPartialViewToString("_patientDocumentPartial", model);
             }
             return Json(returnData);
@@ -82,7 +111,7 @@ namespace WebEdoc2017.Controllers
 
 
         [HttpPost]
-        public ActionResult AddPatientDocument(Int64 MenuID, PatientDocumentModel _parameter)
+        public ActionResult AddPatientDocument(Int64 MenuID, PatientDocumentModel _parameter,string LoginType)
         {
 
             var _fileName = string.Empty;
@@ -107,18 +136,7 @@ namespace WebEdoc2017.Controllers
                         {
                             byteData = binaryReader.ReadBytes(System.Web.HttpContext.Current.Request.Files["FileUpload"].ContentLength);
                         }
-
-                        // Saving Image in Original Mode
-                        //  pic.SaveAs(_Path);
-
-                        // resizing image
-                        MemoryStream ms = new MemoryStream();
-                        // WebImage img = new WebImage(_comPath);
-
-                        //if (img.Width > 200)
-                        //    img.Resize(200, 200);
-                        //img.Save(_comPath);
-                        // end resize
+                       MemoryStream ms = new MemoryStream();
                     }
                 }
             }
@@ -152,7 +170,11 @@ namespace WebEdoc2017.Controllers
                 PHICService.PatientData data = new PHICService.PatientData();
                 using (var service = new PHICService.PHICService())
                 {
+                    if(LoginType=="Doctor")
                     data = service.GetPatientDocumentByCategoryID(MenuID,_parameter.PATIENT_ID);
+                    else
+                    data = service.GetPatientDocumentByPatientID(_parameter.PATIENT_ID);
+
 
                 }
                 if (data.isValid)
@@ -175,6 +197,7 @@ namespace WebEdoc2017.Controllers
                         });
                     }
                     ViewBag.CategoryID = MenuID;
+                    ViewBag.LoginType = LoginType;
                     returnData = RenderPartialViewToString("_patientDocumentPartial", model);
                 }
             }
@@ -182,7 +205,7 @@ namespace WebEdoc2017.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdatePatientDocument(Int64 MenuID, PatientDocumentModel _parameter)
+        public ActionResult UpdatePatientDocument(Int64 MenuID, PatientDocumentModel _parameter,string LoginType)
         {
             bool IsValid = false;
             var _fileName = string.Empty;
@@ -249,7 +272,10 @@ namespace WebEdoc2017.Controllers
                 PHICService.PatientData data = new PHICService.PatientData();
                 using (var service = new PHICService.PHICService())
                 {
+                    if(LoginType=="Doctore")
                     data = service.GetPatientDocumentByCategoryID(MenuID, _parameter.PATIENT_ID);
+                    else
+                        data = service.GetPatientDocumentByPatientID(_parameter.PATIENT_ID);
 
                 }
                 if (data.isValid)
@@ -272,6 +298,7 @@ namespace WebEdoc2017.Controllers
                         });
                     }
                     ViewBag.CategoryID = MenuID;
+                    ViewBag.LoginType = LoginType;
                     returnData = RenderPartialViewToString("_patientDocumentPartial", model);
                 }
             }
@@ -280,7 +307,7 @@ namespace WebEdoc2017.Controllers
 
 
         [HttpPost]
-        public ActionResult DeletePatientDocument(Int64 PatientDocumentID,Int64 CategoryID,string Patient_ID)
+        public ActionResult DeletePatientDocument(Int64 PatientDocumentID,Int64 CategoryID,string Patient_ID,string LoginType, Int64 SelectedCategoryID)
         {
             bool IsValid = false;
             List<PatientDocumentModel> model = new List<PatientDocumentModel>();
@@ -293,25 +320,29 @@ namespace WebEdoc2017.Controllers
             {
 
                 int ReturnValue = 0;
-                //First delete the file if exist..Then delete the record...
-                ReturnValue = service.DeletePatientDocumentByPatientDocumentID(PatientDocumentID);
-                ///
+              
 
                 ReturnValue = service.DeletePatientDocument(PatientDocumentID, CategoryID);
                 if (ReturnValue > 0)
                 {
+                    //First delete the file if exist..Then delete the record...
+                    ReturnValue = service.DeletePatientDocumentByPatientDocumentID(PatientDocumentID);
+                    ///
                     IsValid = true;
                 }
 
             }
-            if (IsValid)
-            {
+           
 
                 PHICService.PatientData data = new PHICService.PatientData();
                 using (var service = new PHICService.PHICService())
                 {
-                    data = service.GetPatientDocumentByCategoryID(CategoryID, Patient_ID);
+                    if(LoginType=="Doctor")
+                    data = service.GetPatientDocumentByCategoryID(SelectedCategoryID, Patient_ID);
 
+
+                else
+                    data = service.GetPatientDocumentByPatientID( Patient_ID);
                 }
                 if (data.isValid)
                 {
@@ -332,14 +363,77 @@ namespace WebEdoc2017.Controllers
                         });
                     }
                     ViewBag.CategoryID = CategoryID;
+                    ViewBag.LoginType = LoginType;
                     returnData = RenderPartialViewToString("_patientDocumentPartial", model);
                 }
-            }
+            
             return Json(returnData);
         }
 
 
+        [HttpPost]
+        public ActionResult SearchPatientDocument(PatientDocumentModel model)
+        {
+            string _returnValue = string.Empty;
+            HomeViewModel homeviewModel = new HomeViewModel();
+            StringBuilder filterclause = new StringBuilder();
 
+            if(model.PATIENT_ID.ToString() !="")
+            {
+                filterclause.Append(" UPPER(trim(PATIENT_ID)) ='" + model.PATIENT_ID.Trim().ToUpper() + "' AND ");
+            }
+            if(model.TITLE !=null)
+            {
+                filterclause.Append(" UPPER(trim(TITLE)) like'%" + model.TITLE.Trim().ToUpper() + "%' AND ");
+            }
+            if(model.NAME != null)
+            {
+                filterclause.Append(" UPPER(trim(Name)) like'%" + model.NAME.Trim().ToUpper() + "%' AND ");
+
+            }
+            if (model.DESCRIPTION != null)
+            {
+                filterclause.Append(" UPPER(trim(DESCRIPTION)) like'%" + model.DESCRIPTION.Trim().ToUpper() + "%' AND ");
+
+            }
+            if (model.DOC_CATEGORY_ID !=0)
+            {
+                filterclause.Append(" trim(DOC_CATEGORY_ID) =" + model.DOC_CATEGORY_ID + " AND ");
+
+            }
+            if(filterclause.Length>0)
+            {
+                filterclause = filterclause.Remove(filterclause.Length - 4, 4);
+            }
+            PHICService.PatientData PatientData = new PHICService.PatientData();
+            using (var service=new PHICService.PHICService())
+            {
+                PatientData = service.SearchPatientDocument(filterclause.ToString());
+            }
+            if(PatientData.isValid)
+            {
+                foreach (DataRow item in PatientData.dt.Rows)
+                {
+
+                    homeviewModel.lstPatientDocument.Add(new PatientDocumentModel
+                    {
+                        PATIENT_DOCUMENT_ID = Convert.ToInt64(item["PATIENT_DOCUMENT_ID"])
+                      ,
+                        NAME = item["Name"].ToString(),
+                        DESCRIPTION = item["Description"].ToString(),
+                        DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()),
+                        ELECTRONIC_LINK = item["ELECTRONIC_LINK"].ToString(),
+                        PATH = item["PATH"].ToString(),
+                        PATIENT_ID = item["Patient_ID"].ToString(),
+                        EXTENSION = item["EXTENSION"].ToString(),
+                        TITLE = item["TITLE"].ToString()
+                    });
+                }
+                ViewBag.CategoryID = model.DOC_CATEGORY_ID;
+                _returnValue = RenderPartialViewToString("_patientDocumentPartial", homeviewModel.lstPatientDocument);
+            }
+            return Json(_returnValue);
+        }
 
         #endregion
 
@@ -350,6 +444,7 @@ namespace WebEdoc2017.Controllers
         public ActionResult SaveCategory(Int64 _MenuID, Int64 _ParentID, string actionType, string CategoryName, string CategoryDesc)
         {
             string HTML = string.Empty;
+            string _ddlCategory = string.Empty;
             int returnValue = 0;
             PHICService.paraDocumentCategory _para = new PHICService.paraDocumentCategory();
             _para.DOC_CATEGORY_ID = _MenuID;
@@ -382,17 +477,21 @@ namespace WebEdoc2017.Controllers
                     }
                 }
                 HTML = RenderPartialViewToString("_treeViewPartial", model);
+                _ddlCategory = RenderPartialViewToString("DropDownList/_ddlDocumentCategory", model);
+
+                
             }
 
            
 
-            return Json(HTML);
+            return Json(new { treeView=HTML,ddlCategory=_ddlCategory });
         }
 
         [HttpPost]
         public ActionResult DeleteDocumentCategoryByCategoryID(Int64 CategroyID)
         {
             string returnHtml = string.Empty;
+            string _ddlDocumentCategory = string.Empty;
             bool IsValid = true;
             var Error = string.Empty;
             int returnValue = 0;
@@ -439,11 +538,12 @@ namespace WebEdoc2017.Controllers
                     }
                 }
                 returnHtml = RenderPartialViewToString("_treeViewPartial", model);
+                _ddlDocumentCategory= RenderPartialViewToString("DropDownList/_ddlDocumentCategory", model);
             }
 
 
 
-            return Json(new { HTML = returnHtml, IsValid=IsValid, Error = Error } );
+            return Json(new { HTML = returnHtml, IsValid=IsValid, Error = Error, ddlDocumentCategory= _ddlDocumentCategory } );
         }
 
 

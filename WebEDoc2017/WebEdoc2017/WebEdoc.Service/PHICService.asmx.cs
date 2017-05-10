@@ -272,7 +272,7 @@ namespace WebEdoc.Service
             {
 
                 _data._CommandType = CommandType.Text;
-                _data.CommandText = "SELECT * FROM PATIENT_DOCUMENT where trim(DOC_CATEGORY_ID)=" + CategoryID + " AND trim(Patient_ID)='"+PatientID+"'";
+                _data.CommandText = "SELECT * FROM PATIENT_DOCUMENT where trim(DOC_CATEGORY_ID)=" + CategoryID + " AND trim(Patient_ID)='"+PatientID+ "' order by Patient_Document_ID DESC";
                 _data.OpenWithOutTrans();
 
                 //Executing Query
@@ -366,7 +366,9 @@ namespace WebEdoc.Service
             {
                 _data._CommandType = CommandType.Text;
 
-                _data.CommandText = "UPDATE PATIENT_DOCUMENT SET  NAME='" + para.Name + "',TITLE='" + para.Title + "',DESCRIPTION='" + para.Description + "',DOC_CATEGORY_ID=" + para.CategoryID + ",ELECTRONIC_LINK='" + para.ElectronicLink + "',PATIENT_ID='" + para.PatientID + "' WHERE PATIENT_DOCUMENT_ID=" + para.PatientDocumentID + " AND DOC_CATEGORY_ID=" + CategoryID + " ";
+                // _data.CommandText = "UPDATE PATIENT_DOCUMENT SET  NAME='" + para.Name + "',TITLE='" + para.Title + "',DESCRIPTION='" + para.Description + "',DOC_CATEGORY_ID=" + para.CategoryID + ",ELECTRONIC_LINK='" + para.ElectronicLink + "',PATIENT_ID='" + para.PatientID + "' WHERE PATIENT_DOCUMENT_ID=" + para.PatientDocumentID + " AND DOC_CATEGORY_ID=" + CategoryID + " ";
+                _data.CommandText = "UPDATE PATIENT_DOCUMENT SET  NAME='" + para.Name + "',TITLE='" + para.Title + "',DESCRIPTION='" + para.Description + "',DOC_CATEGORY_ID=" + para.CategoryID + ",ELECTRONIC_LINK='" + para.ElectronicLink + "',PATIENT_ID='" + para.PatientID + "' WHERE PATIENT_DOCUMENT_ID=" + para.PatientDocumentID + "";
+
 
 
 
@@ -446,6 +448,83 @@ namespace WebEdoc.Service
             return returnValue;
         }
 
+        #endregion
+
+        #region Get PatientDocumentBy Patient ID....
+
+        [WebMethod]
+
+        public PatientData GetPatientDocumentByPatientID(string PatientID)
+        {
+            PatientData data = new PatientData();
+            OracleDataAccess.OracleCommandData _data = new OracleDataAccess.OracleCommandData();
+            try
+            {
+
+                _data._CommandType = CommandType.Text;
+                _data.CommandText = "SELECT * FROM PATIENT_DOCUMENT where trim(Patient_ID)='" + PatientID + "' order by Patient_Document_ID DESC";
+                _data.OpenWithOutTrans();
+
+                //Executing Query
+                DataSet _ds = _data.Execute(OracleDataAccess.ExecutionType.ExecuteDataSet) as DataSet;
+
+                data.dt = _ds.Tables[0];
+                data.isValid = true;
+
+                //string sQuery = "SELECT * FROM PatientTable ";
+                // data.dt= new DBAction().ExecuteDataSetInline(sQuery).Tables[0];
+            }
+            catch (Exception ex)
+            {
+                data.Error = ex.Message.ToString();
+                //throw;
+            }
+            finally
+            {
+                _data.Close();
+            }
+
+            return data;
+        }
+
+        #endregion
+
+        #region Generic Search Patient Document 
+
+
+        [WebMethod]
+        public PatientData SearchPatientDocument(string SearchClause="")
+        {
+            PatientData data = new PatientData();
+            OracleDataAccess.OracleCommandData _data = new OracleDataAccess.OracleCommandData();
+            try
+            {
+
+                _data._CommandType = CommandType.Text;
+                _data.CommandText = "SELECT * FROM PATIENT_DOCUMENT  WHERE "+SearchClause+ " order by Patient_Document_ID DESC";
+                _data.OpenWithOutTrans();
+
+                //Executing Query
+                DataSet _ds = _data.Execute(OracleDataAccess.ExecutionType.ExecuteDataSet) as DataSet;
+
+                data.dt = _ds.Tables[0];
+                data.isValid = true;
+
+                //string sQuery = "SELECT * FROM PatientTable ";
+                // data.dt= new DBAction().ExecuteDataSetInline(sQuery).Tables[0];
+            }
+            catch (Exception ex)
+            {
+                data.Error = ex.Message.ToString();
+                //throw;
+            }
+            finally
+            {
+                _data.Close();
+            }
+
+            return data;
+        }
         #endregion
 
         [WebMethod]
