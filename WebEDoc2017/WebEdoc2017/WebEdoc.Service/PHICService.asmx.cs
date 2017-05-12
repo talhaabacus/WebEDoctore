@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Script.Services;
 using WebEdoc2017.DataLayer;
+using System.IO;
 
 namespace WebEdoc.Service
 {
@@ -528,9 +529,9 @@ namespace WebEdoc.Service
         #endregion
 
         [WebMethod]
-        public PatientData GetPatientDocumentByPatientDocumentID(Int64 PatientDocumentID)
+        public paraPatientDocument GetPatientDocumentByPatientDocumentID(Int64 PatientDocumentID)
         {
-            PatientData data = new PatientData();
+            paraPatientDocument data = new paraPatientDocument();
             OracleDataAccess.OracleCommandData _data = new OracleDataAccess.OracleCommandData();
             try
             {
@@ -542,15 +543,29 @@ namespace WebEdoc.Service
                 //Executing Query
                 DataSet _ds = _data.Execute(OracleDataAccess.ExecutionType.ExecuteDataSet) as DataSet;
 
-                data.dt = _ds.Tables[0];
-                data.isValid = true;
+                if(_ds.Tables[0].Rows.Count>0)
+                {
+                    foreach (DataRow item in _ds.Tables[0].Rows)
+                    {
+                        data.Name= Path.GetFileName(item["Path"].ToString());
+                       
+                        string _path = Server.MapPath("/Upload/PHICDocument/" + data.Name);
+
+                        byte[] fileBytes = System.IO.File.ReadAllBytes(_path);
+                        data.attachement = fileBytes;
+
+                       // return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, FileName);
+                    }
+                }
+             //   data.dt = _ds.Tables[0];
+               // data.isValid = true;
 
                 //string sQuery = "SELECT * FROM PatientTable ";
                 // data.dt= new DBAction().ExecuteDataSetInline(sQuery).Tables[0];
             }
             catch (Exception ex)
             {
-                data.Error = ex.Message.ToString();
+               // data.Error = ex.Message.ToString();
                 //throw;
             }
             finally

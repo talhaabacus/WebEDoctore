@@ -21,21 +21,46 @@ namespace WebEdoc.Service
     public class TCService : System.Web.Services.WebService
     {
         [WebMethod]
-        public string EncryptAES(string TextToEncrypt, string EncryptionKey)
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string EncryptAES(string TextToEncrypt)
         {
-            return TC.TConnect.EncryptAES(TextToEncrypt, EncryptionKey);
+            string strEncrypted = string.Empty;
+            string strhash = string.Empty;
+
+            strEncrypted = TC.TConnect.EncryptAES(TextToEncrypt);
+            strhash = CalculateSHA2Hash(TextToEncrypt);
+
+            var data = new { Encrypted = strEncrypted, Hash = strhash };
+
+            System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
+            return js.Serialize(data);
+
+        }
+
+        public string DecryptAES(string TextToDecrypt)
+        {
+            return TC.TConnect.DecryptAES(TextToDecrypt);
         }
 
         [WebMethod]
-        public string DecryptAES(string TextToDecrypt, string EncryptionKey)
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string DecryptAES(string TextToDecrypt, string Hash)
         {
-            return TC.TConnect.DecryptAES(TextToDecrypt, EncryptionKey);
+            return TC.TConnect.DecryptAESCalculateHash(TextToDecrypt, Hash);
         }
 
         [WebMethod]
         public string CalculateSHA2Hash(string InputString)
         {
             return TC.TConnect.CalculateSHA2Hash(InputString);
+        }
+
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string DecryptAESWithIDs(string ID, string Type)
+        {
+            return TC.TConnect.GetDecryptedStringWithID(ID, Type);
         }
     }
 }

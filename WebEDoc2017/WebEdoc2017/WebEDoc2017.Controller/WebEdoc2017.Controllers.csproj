@@ -63,10 +63,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Routing\RoutingManager.cs" />
-    <Compile Include="Web References\PHICService\Reference.cs">
+    <Compile Include="Service References\PHICService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -77,13 +77,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\PHICService\PatientData.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
+    <None Include="Service References\PHICService\PHICService.wsdl" />
+    <None Include="Service References\PHICService\WebEdoc2017.Controllers.PHICService.paraPatientDocument.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Web References\PHICService\PHICService.wsdl" />
-    <None Include="Web References\PHICService\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
+    <None Include="Service References\PHICService\WebEdoc2017.Controllers.PHICService.PatientData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -103,20 +102,22 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost/WebEdoc2017.Service/PHICService.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PHICService\</RelPath>
-      <UpdateFromURL>http://localhost/WebEdoc2017.Service/PHICService.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>WebEdoc2017_Controllers_PHICService_PHICService</CachedSettingsPropName>
-    </WebReferenceUrl>
+    <WCFMetadataStorage Include="Service References\PHICService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\PHICService\PHICService.disco" />
+    <None Include="Service References\PHICService\PHICService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PHICService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PHICService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PHICService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -23,7 +23,7 @@ namespace WebEdoc2017.Controllers
             PHICService.PatientData patientDocumentdata = new PHICService.PatientData();
 
             // PHICService.PatientData data = new PHICService.PatientData();
-            using (var service=new PHICService.PHICService())
+            using (var service=new PHICService.PHICServiceSoapClient())
             {
                 documentCategory = service.GetDocumentCategory();
                 patientDocumentdata = service.GetPatientDocumentByPatientID(patient_id);
@@ -78,7 +78,7 @@ namespace WebEdoc2017.Controllers
             List<PatientDocumentModel> model = new List<PatientDocumentModel>();
             string returnData = string.Empty;
             PHICService.PatientData data = new PHICService.PatientData();
-            using (var service = new PHICService.PHICService())
+            using (var service = new PHICService.PHICServiceSoapClient())
             {
                 data = service.GetPatientDocumentByCategoryID(MenuID, Patient_ID);
 
@@ -155,7 +155,7 @@ namespace WebEdoc2017.Controllers
             parm.Extension = _Extension;
             parm.PatientID = _parameter.PATIENT_ID;
             parm.attachement = byteData;
-            using (var service = new PHICService.PHICService())
+            using (var service = new PHICService.PHICServiceSoapClient())
             {
                 int Value = service.AddPatientDocument(MenuID, parm);
                 if(Value>0)
@@ -168,7 +168,7 @@ namespace WebEdoc2017.Controllers
             {
                
                 PHICService.PatientData data = new PHICService.PatientData();
-                using (var service = new PHICService.PHICService())
+                using (var service = new PHICService.PHICServiceSoapClient())
                 {
                     if(LoginType=="Doctor")
                     data = service.GetPatientDocumentByCategoryID(MenuID,_parameter.PATIENT_ID);
@@ -257,7 +257,7 @@ namespace WebEdoc2017.Controllers
             parm.Extension = _Extension;
             parm.PatientID = _parameter.PATIENT_ID;
             parm.attachement = byteData;
-            using (var service = new PHICService.PHICService())
+            using (var service = new PHICService.PHICServiceSoapClient())
             {
                 int Value = service.UpdatePatientDocument(MenuID, parm);
                 if (Value > 0)
@@ -270,9 +270,9 @@ namespace WebEdoc2017.Controllers
             {
 
                 PHICService.PatientData data = new PHICService.PatientData();
-                using (var service = new PHICService.PHICService())
+                using (var service = new PHICService.PHICServiceSoapClient())
                 {
-                    if(LoginType=="Doctore")
+                    if(LoginType=="Doctor")
                     data = service.GetPatientDocumentByCategoryID(MenuID, _parameter.PATIENT_ID);
                     else
                         data = service.GetPatientDocumentByPatientID(_parameter.PATIENT_ID);
@@ -316,7 +316,7 @@ namespace WebEdoc2017.Controllers
 
             
 
-            using (var service = new PHICService.PHICService())
+            using (var service = new PHICService.PHICServiceSoapClient())
             {
 
                 int ReturnValue = 0;
@@ -335,7 +335,7 @@ namespace WebEdoc2017.Controllers
            
 
                 PHICService.PatientData data = new PHICService.PatientData();
-                using (var service = new PHICService.PHICService())
+                using (var service = new PHICService.PHICServiceSoapClient())
                 {
                     if(LoginType=="Doctor")
                     data = service.GetPatientDocumentByCategoryID(SelectedCategoryID, Patient_ID);
@@ -406,7 +406,7 @@ namespace WebEdoc2017.Controllers
                 filterclause = filterclause.Remove(filterclause.Length - 4, 4);
             }
             PHICService.PatientData PatientData = new PHICService.PatientData();
-            using (var service=new PHICService.PHICService())
+            using (var service=new PHICService.PHICServiceSoapClient())
             {
                 PatientData = service.SearchPatientDocument(filterclause.ToString());
             }
@@ -451,7 +451,7 @@ namespace WebEdoc2017.Controllers
             _para.Name = CategoryName;
             _para.Description = CategoryDesc;
             _para.Parent_ID = _ParentID;
-            using (var service = new PHICService.PHICService())
+            using (var service = new PHICService.PHICServiceSoapClient())
             {
                  //= service.GetPatientDocumentByCategoryID(MenuID);
                   
@@ -463,7 +463,7 @@ namespace WebEdoc2017.Controllers
             {
                 List<DocumentCategoryModel> model = new List<DocumentCategoryModel>();
                 PHICService.PatientData data = new PHICService.PatientData();
-                using (var service = new PHICService.PHICService())
+                using (var service = new PHICService.PHICServiceSoapClient())
                 {
                     data = service.GetDocumentCategory();
 
@@ -500,7 +500,7 @@ namespace WebEdoc2017.Controllers
             
 
         
-            using (var service = new PHICService.PHICService())
+            using (var service = new PHICService.PHICServiceSoapClient())
             {
                 //Check is category going for deleting is user in Patient Document or Not
 
@@ -524,7 +524,7 @@ namespace WebEdoc2017.Controllers
             {
                 List<DocumentCategoryModel> model = new List<DocumentCategoryModel>();
                 PHICService.PatientData data = new PHICService.PatientData();
-                using (var service = new PHICService.PHICService())
+                using (var service = new PHICService.PHICServiceSoapClient())
                 {
                     data = service.GetDocumentCategory();
 
@@ -549,27 +549,17 @@ namespace WebEdoc2017.Controllers
 
         public ActionResult DownLoadPatientUploadDocument(Int64 PatientDocumentID)
         {
-
-            PHICService.PatientData Data = new PHICService.PatientData();
-            PHICService.PHICService _service = new PHICService.PHICService();
-            Data = _service.GetPatientDocumentByPatientDocumentID(PatientDocumentID);
-            if(Data.isValid)
+            PHICService.paraPatientDocument Data = new PHICService.paraPatientDocument();
+            using (var _service=new PHICService.PHICServiceSoapClient())
             {
-                if(Data.dt.Rows.Count>0)
-                {
-                    foreach (DataRow item in Data.dt.Rows)
-                    {
-                        string FileName = Path.GetFileName(item["Path"].ToString()); 
-                        string _path = Server.MapPath("/Upload/PHICDocument/"+ FileName);
-                       
-                        byte[] fileBytes = System.IO.File.ReadAllBytes(_path);
-
-                        return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, FileName);
-                    }
-                }
+                Data = _service.GetPatientDocumentByPatientDocumentID(PatientDocumentID);
             }
-            return View();
-           // return File(abc, "application/octet-stream");
+            if (Data.Name.ToString() !="" & Data.Name.ToString()!=null)
+            {
+                           return File(Data.attachement, System.Net.Mime.MediaTypeNames.Application.Octet, Data.Name);
+            }
+             return  Content("No Document found!");
+         
         }
 
         protected string RenderPartialViewToString(string viewName, object model)
