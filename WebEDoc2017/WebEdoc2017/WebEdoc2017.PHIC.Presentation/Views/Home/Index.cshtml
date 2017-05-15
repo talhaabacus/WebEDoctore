@@ -15,7 +15,7 @@
 
     <div style="clear:both;">
         
-        <div id="" class="treeview" style="width:20%;overflow-x:scroll; height:700px;float:left;margin-top:2px; ">
+        <div id="" class="treeview" style="width:30%;overflow-x:scroll; height:700px;float:left;margin-top:3px; ">
            <br />
           
            <table width="100%">
@@ -36,7 +36,7 @@
            </table>
            
         </div>
-        <div id="PatientDocumentContent" style="width:80%;float:right;margin-top:0px; ">
+        <div id="PatientDocumentContent" style="width:70%;float:right;margin-top:0px; ">
             @Html.Partial("_patientDocumentPartial", Model.lstPatientDocument)
         </div>
 
@@ -47,14 +47,15 @@
             <table width="60%">
                 <tr>
                     <td><input id="txtCategoryName" placeholder="Enter Name" value="" class="form-control" /></td>
-
+                    <td></td>
 
                 </tr>
                 <tr>
                     <td><input id="txtCategoryDesc" placeholder="Enter Description" value="" class="form-control" /></td>
+                    <td><img src="../../../../Images/Loader.gif" style="width:45%;height:17%;display:none;" id="AddEditCategoryLoader" /></td>
                 </tr>
                 <tr>
-                    <td><img src="../../../../Images/Loader.gif" style="width:45%;height:17%;display:none;"  id="AddEditCategoryLoader" /></td>
+                   
                 </tr>
 
             </table>
@@ -63,11 +64,13 @@
         </div>
         <div id="DeleteCategoryConfirmation">
             Are you sure to want delete this category?
+            <img src="../../../../Images/Loader.gif" style="width:45%;height:45%; display:none;" id="DeleteCategoryConfirmationLoader" />
 
         </div>
 
-        <div id="DeleteDocumentConfirmation">
+        <div id="DeleteDocumentConfirmation" >
             Are you sure to want delete this Document?
+            <img src="../../../../Images/Loader.gif" style="width:45%;height:45%; display:none;" id="DeleteDocumentConfirmationLoader" />
 
         </div>
 
@@ -112,7 +115,9 @@
                 <tr>
                   
                     <td valign="top">Description</td>
-                    <td colspan="3" valign="top"><textarea placeholder="Maximum Length 4000" maxlength="4000" rows="3" cols="3" id="txtDocumentDesc" type="text" class="form-control" required></textarea></td>
+                    <td colspan="1" valign="top"><textarea placeholder="Maximum Length 2000" maxlength="2000" rows="3" cols="1" id="txtDocumentDesc" type="text" class="form-control" required></textarea></td>
+                    <td><img src="../../../../Images/Loader.gif" style="width:40%;height:25%; display:none;" id="AddEditDocumentLoader" />
+</td>
                 </tr>
                 <tr>
                    
@@ -141,9 +146,12 @@
                     <td valign="top">
                         Description
                     </td>
-                    <td valign="top"><textarea placeholder="Maximum Length 4000" maxlength="4000" rows="3" cols="3" id="SearchDescription" type="text" class="form-control" required></textarea></td>
+                    <td valign="top"><textarea placeholder="Maximum Length 2000" maxlength="2000" rows="3" cols="3" id="SearchDescription" type="text" class="form-control" required></textarea></td>
                    
                 </tr>
+              <tr>
+                  <td colspan="3" align="center"><img src="../../../../Images/Loader.gif" style="width:40%;height:29%; display:none;" id="SearchDialogLoader" /></td>
+              </tr>
                
                 <tr></tr>
             </table>
@@ -210,6 +218,7 @@
 
 
         };
+        $("#DeleteCategoryConfirmationLoader").show();
         $.post(URL, parameter, function (data, status, xhr) {
             if (data != null) {
                 if (data.IsValid == false) {
@@ -223,6 +232,7 @@
                     $("#divCategory").html("");
                     $("#divCategory").html(data.ddlDocumentCategory);
 
+                    $("#DeleteCategoryConfirmationLoader").hide();
 
                     $("#DeleteCategoryConfirmation").dialog("close")
                 }
@@ -304,6 +314,7 @@
 
 
         if (PatientDocumentID == 0) {
+            $("#AddEditDocumentLoader").show();
             var URL = '@Url.Action("AddPatientDocument", "Home")';
             $.ajax({
                 url: URL,
@@ -317,7 +328,7 @@
                     $("#PatientDocumentContent").html("");
                     $("#PatientDocumentContent").html(response);
                     $("#AddEditDocument").dialog("close")
-
+                    $("#AddEditDocumentLoader").hide();
                     $("#ddlCategory").val("0");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -330,6 +341,7 @@
             });
         }
         else {
+            $("#AddEditDocumentLoader").show();
             var URL = '@Url.Action("UpdatePatientDocument", "Home")';
             $.ajax({
                 url: URL,
@@ -342,7 +354,8 @@
 
                     $("#PatientDocumentContent").html("");
                     $("#PatientDocumentContent").html(response);
-                    $("#AddEditDocument").dialog("close")
+                    $("#AddEditDocument").dialog("close");
+                    $("#AddEditDocumentLoader").hide();
                     $("#ddlCategory").val("0");
                     ClearAll();
                 },
@@ -368,7 +381,7 @@
         var Patient_ID = $("#hdPatientLogId").val();
         var LoginType = $("#hdLoginType").val();
         var hdCategoryID = $("#hdCategoryIDForDocument").val();
-        debugger;
+      
         var parameter = {
             'PatientDocumentID': PatientDocumentID,
             'CategoryID': CategoryID,
@@ -377,12 +390,14 @@
             'SelectedCategoryID': hdCategoryID
 
         };
+        $("#DeleteDocumentConfirmationLoader").show();
         var URL = '@Url.Action("DeletePatientDocument", "Home")';
         $.post(URL, parameter, function (data, status, xhr) {
             if (data != null) {
                 $("#PatientDocumentContent").html("");
                 $("#PatientDocumentContent").html(data);
                 $("#DeleteDocumentConfirmation").dialog("close");
+                $("#DeleteDocumentConfirmationLoader").hide();
                 ClearAll();
             }
         });
@@ -392,6 +407,8 @@
 
     function SaveCategory() {
 
+
+        debugger;
         var _MenuID = $("#_MenuID").val();
         var _ParentID = $("#_ParentID").val();
         var actionType = $("#actionType").val();
@@ -455,11 +472,13 @@
            
 
         };
+        $("#SearchDialogLoader").show();
         var URL = '@Url.Action("SearchPatientDocument", "Home")';
         $.post(URL, Parameter, function (data) {
             $("#PatientDocumentContent").html("");
             $("#PatientDocumentContent").html(data);
             $("#SearchDialog").dialog("close");
+            $("#SearchDialogLoader").hide();
 
         });
     }

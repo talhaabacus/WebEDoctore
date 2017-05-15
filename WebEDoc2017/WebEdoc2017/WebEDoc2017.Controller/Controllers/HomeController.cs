@@ -27,40 +27,28 @@ namespace WebEdoc2017.Controllers
             {
                 documentCategory = service.GetDocumentCategory();
                 patientDocumentdata = service.GetPatientDocumentByPatientID(patient_id);
-
-
+                
             }
             if (documentCategory.dt.Rows.Count > 0)
             {
                 var categoryRecord = from myRow in documentCategory.dt.AsEnumerable() select myRow;
                 if (documentCategory.dt.Rows.Count > 0)
                 {
-                    foreach (DataRow item in documentCategory.dt.Rows)
-                    {
-                        model.lstDocumentCategory.Add(new DocumentCategoryModel { DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()), Name = item["Name"].ToString(), Description = item["Description"].ToString(), Parent_ID = Convert.ToInt64(item["Parent_ID"]) });
-                    }
-                }
-            }
-            if(patientDocumentdata.dt.Rows.Count >0)
-            {
-                foreach (DataRow item in patientDocumentdata.dt.Rows)
-                {
 
-                    model.lstPatientDocument.Add(new PatientDocumentModel
-                    {
-                        PATIENT_DOCUMENT_ID = Convert.ToInt64(item["PATIENT_DOCUMENT_ID"])
-                      ,
-                        NAME = item["Name"].ToString(),
-                        DESCRIPTION = item["Description"].ToString(),
-                        DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()),
-                        ELECTRONIC_LINK = item["ELECTRONIC_LINK"].ToString(),
-                        PATH = item["PATH"].ToString(),
-                        PATIENT_ID = item["Patient_ID"].ToString(),
-                        EXTENSION = item["EXTENSION"].ToString(),
-                        TITLE = item["TITLE"].ToString()
-                    });
+                    model.lstDocumentCategory = Extension.ConvertToDocumentCategory(documentCategory.dt);
+                    
+                   
                 }
             }
+            //if (model.lstDocumentCategory.Count == 0)
+            //{
+            //    model.lstDocumentCategory.Add(new DocumentCategoryModel { DOC_CATEGORY_ID = 1,Description="test", Parent_ID = 0, Name = "Defaut Category" });
+            //}
+            if (patientDocumentdata.dt.Rows.Count >0)
+            {
+                model.lstPatientDocument = Extension.ConvertToPatientDocumentList(patientDocumentdata.dt);
+            }
+            
 
 
            
@@ -85,23 +73,7 @@ namespace WebEdoc2017.Controllers
             }
             if(data.isValid)
             {
-                foreach (DataRow item in data.dt.Rows)
-                {
-                  
-                    model.Add(new PatientDocumentModel
-                    {
-                        PATIENT_DOCUMENT_ID = Convert.ToInt64(item["PATIENT_DOCUMENT_ID"])
-                      ,
-                        NAME = item["Name"].ToString(),
-                        DESCRIPTION = item["Description"].ToString(),
-                        DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()),
-                        ELECTRONIC_LINK = item["ELECTRONIC_LINK"].ToString(),
-                        PATH = item["PATH"].ToString(),
-                        PATIENT_ID = item["Patient_ID"].ToString(),
-                       EXTENSION = item["EXTENSION"].ToString(),
-                        TITLE = item["TITLE"].ToString()
-                    });
-                }
+                model = Extension.ConvertToPatientDocumentList(data.dt);
                 ViewBag.CategoryID = MenuID;
                 ViewBag.LoginType = LoginType;
                 returnData = RenderPartialViewToString("_patientDocumentPartial", model);
@@ -179,23 +151,8 @@ namespace WebEdoc2017.Controllers
                 }
                 if (data.isValid)
                 {
-                    foreach (DataRow item in data.dt.Rows)
-                    {
 
-                        model.Add(new PatientDocumentModel
-                        {
-                            PATIENT_DOCUMENT_ID = Convert.ToInt64(item["PATIENT_DOCUMENT_ID"])
-                          ,
-                            NAME = item["Name"].ToString(),
-                            DESCRIPTION = item["Description"].ToString(),
-                            DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()),
-                            ELECTRONIC_LINK = item["ELECTRONIC_LINK"].ToString(),
-                            PATH = item["PATH"].ToString(),
-                            PATIENT_ID = item["Patient_ID"].ToString(),
-                            EXTENSION = item["EXTENSION"].ToString(),
-                            TITLE = item["TITLE"].ToString()
-                        });
-                    }
+                    model = Extension.ConvertToPatientDocumentList(data.dt);
                     ViewBag.CategoryID = MenuID;
                     ViewBag.LoginType = LoginType;
                     returnData = RenderPartialViewToString("_patientDocumentPartial", model);
@@ -280,23 +237,7 @@ namespace WebEdoc2017.Controllers
                 }
                 if (data.isValid)
                 {
-                    foreach (DataRow item in data.dt.Rows)
-                    {
-
-                        model.Add(new PatientDocumentModel
-                        {
-                            PATIENT_DOCUMENT_ID = Convert.ToInt64(item["PATIENT_DOCUMENT_ID"])
-                          ,
-                            NAME = item["Name"].ToString(),
-                            DESCRIPTION = item["Description"].ToString(),
-                            DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()),
-                            ELECTRONIC_LINK = item["ELECTRONIC_LINK"].ToString(),
-                            PATH = item["PATH"].ToString(),
-                            PATIENT_ID = item["Patient_ID"].ToString(),
-                            EXTENSION = item["EXTENSION"].ToString(),
-                            TITLE = item["TITLE"].ToString()
-                        });
-                    }
+                    model = Extension.ConvertToPatientDocumentList(data.dt);
                     ViewBag.CategoryID = MenuID;
                     ViewBag.LoginType = LoginType;
                     returnData = RenderPartialViewToString("_patientDocumentPartial", model);
@@ -346,25 +287,10 @@ namespace WebEdoc2017.Controllers
                 }
                 if (data.isValid)
                 {
-                    foreach (DataRow item in data.dt.Rows)
-                    {
-
-                        model.Add(new PatientDocumentModel
-                        {
-                            PATIENT_DOCUMENT_ID = Convert.ToInt64(item["PATIENT_DOCUMENT_ID"])
-                          ,
-                            NAME = item["Name"].ToString(),
-                            DESCRIPTION = item["Description"].ToString(),
-                            DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()),
-                            ELECTRONIC_LINK = item["ELECTRONIC_LINK"].ToString(),
-                            PATH = item["PATH"].ToString(),
-                            PATIENT_ID = item["Patient_ID"].ToString(),
-                            EXTENSION = item["EXTENSION"].ToString()
-                        });
-                    }
-                    ViewBag.CategoryID = CategoryID;
-                    ViewBag.LoginType = LoginType;
-                    returnData = RenderPartialViewToString("_patientDocumentPartial", model);
+                      model = Extension.ConvertToPatientDocumentList(data.dt);
+                      ViewBag.CategoryID = CategoryID;
+                      ViewBag.LoginType = LoginType;
+                      returnData = RenderPartialViewToString("_patientDocumentPartial", model);
                 }
             
             return Json(returnData);
@@ -412,23 +338,7 @@ namespace WebEdoc2017.Controllers
             }
             if(PatientData.isValid)
             {
-                foreach (DataRow item in PatientData.dt.Rows)
-                {
-
-                    homeviewModel.lstPatientDocument.Add(new PatientDocumentModel
-                    {
-                        PATIENT_DOCUMENT_ID = Convert.ToInt64(item["PATIENT_DOCUMENT_ID"])
-                      ,
-                        NAME = item["Name"].ToString(),
-                        DESCRIPTION = item["Description"].ToString(),
-                        DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()),
-                        ELECTRONIC_LINK = item["ELECTRONIC_LINK"].ToString(),
-                        PATH = item["PATH"].ToString(),
-                        PATIENT_ID = item["Patient_ID"].ToString(),
-                        EXTENSION = item["EXTENSION"].ToString(),
-                        TITLE = item["TITLE"].ToString()
-                    });
-                }
+                homeviewModel.lstPatientDocument = Extension.ConvertToPatientDocumentList(PatientData.dt);
                 ViewBag.CategoryID = model.DOC_CATEGORY_ID;
                 _returnValue = RenderPartialViewToString("_patientDocumentPartial", homeviewModel.lstPatientDocument);
             }
@@ -471,10 +381,11 @@ namespace WebEdoc2017.Controllers
                 var categoryRecord = from myRow in data.dt.AsEnumerable() select myRow;
                 if (data.dt.Rows.Count > 0)
                 {
-                    foreach (DataRow item in data.dt.Rows)
-                    {
-                        model.Add(new DocumentCategoryModel { DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()), Name = item["Name"].ToString(), Description = item["Description"].ToString(), Parent_ID = Convert.ToInt64(item["Parent_ID"]) });
-                    }
+                    model = Extension.ConvertToDocumentCategory(data.dt);
+
+                  
+
+                   
                 }
                 HTML = RenderPartialViewToString("_treeViewPartial", model);
                 _ddlCategory = RenderPartialViewToString("DropDownList/_ddlDocumentCategory", model);
@@ -532,10 +443,14 @@ namespace WebEdoc2017.Controllers
                 var categoryRecord = from myRow in data.dt.AsEnumerable() select myRow;
                 if (data.dt.Rows.Count > 0)
                 {
-                    foreach (DataRow item in data.dt.Rows)
+                    model = Extension.ConvertToDocumentCategory(data.dt);
+
+                    if (model.Count == 0)
                     {
-                        model.Add(new DocumentCategoryModel { DOC_CATEGORY_ID = Convert.ToInt64(item["DOC_CATEGORY_ID"].ToString()), Name = item["Name"].ToString(), Description = item["Description"].ToString(), Parent_ID = Convert.ToInt64(item["Parent_ID"]) });
+                        model.Add(new DocumentCategoryModel { DOC_CATEGORY_ID = 0, Parent_ID = 0, Name = "Defaut Category" });
                     }
+
+                  
                 }
                 returnHtml = RenderPartialViewToString("_treeViewPartial", model);
                 _ddlDocumentCategory= RenderPartialViewToString("DropDownList/_ddlDocumentCategory", model);

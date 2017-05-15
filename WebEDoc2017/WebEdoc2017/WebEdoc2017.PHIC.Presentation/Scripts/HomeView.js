@@ -92,11 +92,7 @@ function getSelectedNodeValue(CurrentID, type) {
 
         else
             $('#AddEditCategory').dialog('option', 'title', 'Add Sibling/Sub-Category');
-
-
-
-
-        $('#AddEditCategory').dialog('open');
+            $('#AddEditCategory').dialog('open');
 
     }
 
@@ -104,12 +100,22 @@ function getSelectedNodeValue(CurrentID, type) {
     var MenuID = $("#" + CurrentID.id).find("input:hidden[name=MenuID]").val();
     var ParentID = $("#" + CurrentID.id).find("input:hidden[name=ParentID]").val();
    
-
-    $("#_MenuID").val(MenuID);
-    $("#_ParentID").val(ParentID);
+    
+        $("#_MenuID").val(MenuID);
+        $("#_ParentID").val(ParentID);
+    
    
     $("#actionType").val(type);
 
+}
+function DefaultSelectedNodeValue()
+{
+   
+    $("#_MenuID").val("0");
+    $("#_ParentID").val("0");
+    $("#actionType").val("SIBLING");
+    $('#AddEditCategory').dialog('option', 'title', 'Add Sibling/Sub-Category');
+    $('#AddEditCategory').dialog('open');
 }
 
 
@@ -132,9 +138,9 @@ function OpenSearchDialoge()
 $(function () {
     $('#SearchDialog')
       .dialog({
-          title:"Search Patient Document",
+          title:"Patient Document",
           autoOpen: false,
-          width: 700,
+          width: 600,
           modal: true,
           height: 300,
           buttons: {
@@ -179,7 +185,7 @@ $(function () {
         autoOpen: false,
         width: 400,
         modal: true,
-        height: 150,
+        height: 190,
         buttons: {
             "Delete": function () {
                 DeleteCategory();
@@ -196,7 +202,7 @@ $(function () {
         autoOpen: false,
         width: 800,
         modal: true,
-        height: 400,
+        height: 340,
         buttons: {
             "SAVE": function () {
                 AddPatientDocument();
@@ -208,11 +214,11 @@ $(function () {
 });
 $(function () {
     $('#DeleteDocumentConfirmation').dialog({
-        title: "Delete Document Confirmation",
+        title: "Document Confirmation",
         autoOpen: false,
-        width: 400,
+        width: 500,
         modal: true,
-        height: 150,
+        height: 180,
         buttons: {
             "Delete": function () {
                 DeleteDocument();
@@ -233,7 +239,7 @@ $(function () {
         autoOpen: false,
         width: 400,
         modal: true,
-        height: 300,
+        height: 200,
         buttons: {
             "SAVE": function () {
                 SaveCategory();
