@@ -471,7 +471,10 @@ namespace WebEdoc2017.Controllers
             }
             if (Data.Name.ToString() !="" & Data.Name.ToString()!=null)
             {
+                if(Data.attachement!=null)
                            return File(Data.attachement, System.Net.Mime.MediaTypeNames.Application.Octet, Data.Name);
+                else
+                    return Content("File is not found!");
             }
              return  Content("No Document found!");
          

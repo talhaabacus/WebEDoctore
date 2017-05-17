@@ -239,7 +239,7 @@ $(function () {
         autoOpen: false,
         width: 400,
         modal: true,
-        height: 200,
+        height: 240,
         buttons: {
             "SAVE": function () {
                 SaveCategory();
@@ -278,10 +278,12 @@ function setDateToPatientDocument(id)
         $("#txtDocumentElectronicLink").val(Json.ELECTRONIC_LINK);
         $("#txtDocumentElectronicLink").removeAttr("disabled");
         $("#DocumentFile").prop("disabled", true);
+        $("#ddlAttachementType").attr("disabled", true);
     }
     else {
+        $("#ddlAttachementType").attr("disabled", true);
         $("#ddlAttachementType").val(2);
-        $("#DocumentFile").removeAttr("disabled");
+        $("#DocumentFile").attr("disabled", true);
         $("#txtDocumentElectronicLink").prop("disabled",true);
     }
 
@@ -316,6 +318,7 @@ function ClearAll()
     $("#txtDocumentCategory").val("");
     $("#txtDocumentElectronicLink").val("");
     $("#hdPatientDocumentID").val("0");
+    $("#ddlAttachementType").attr("disabled", false);
    
 
 }

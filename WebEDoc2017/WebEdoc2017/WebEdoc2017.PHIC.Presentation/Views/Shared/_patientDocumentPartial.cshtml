@@ -10,7 +10,8 @@
 </style>
 <input type="hidden" id="hdCategoryIDForDocument" value="@ViewBag.CategoryID" />
 <div style="margin-right:0px;text-align:right;">
-    <table><tr><td></td></tr></table><a href="#" onclick="OpenSearchDialoge()"><img src="~/Images/Search.png" width="2%" height="5%" />Search</a>&nbsp;&nbsp;&nbsp;<img src="~/Images/add.png" /><a href="#" onclick="AddDocument();">Add</a> </div>
+
+    <img src="~/Images/Loader.gif" id="MainLoader" style="display:none;width:100px;height:17px;" />   <a href="#" onclick="OpenSearchDialoge()"><img src="~/Images/Search.png" width="2%" height="5%" />Search</a>&nbsp;&nbsp;&nbsp;<img src="~/Images/add.png" /><a href="#" onclick="AddDocument();">Add</a> </div>
 <table width="100%">
     <thead class="th">
         <tr>
@@ -67,7 +68,12 @@
                     <td>@item.NAME</td>
                     <td>@item.DESCRIPTION</td>
                    <td>@item.TITLE</td>
-                    <td><a href="#" onclick="ViewElectronicFileLink('@item.ELECTRONIC_LINK')" >@item.ELECTRONIC_LINK</a></td>
+                    @if (item.ELECTRONIC_LINK != null && item.ELECTRONIC_LINK !="")
+                    { <td><a href="#" onclick="ViewElectronicFileLink('@item.ELECTRONIC_LINK')" >View & Download</a></td>
+                    }
+                    else
+                    {  <td></td>
+                    }
                     @if (item.PATH != null && item.PATH != "")
                     {<td> <a href="@Url.Action("DownLoadPatientUploadDocument", "Home", new { PatientDocumentID = item.PATIENT_DOCUMENT_ID })">DownLoad</a></td>
                     }
@@ -85,7 +91,14 @@
                         <td>@item.NAME</td>
                         <td>@item.DESCRIPTION</td>
                         <td>@item.TITLE</td>
-                        <td><a href="#"  onclick="ViewElectronicFileLink('@item.ELECTRONIC_LINK')" class="ElectronicLine">@item.ELECTRONIC_LINK</a></td>
+@if (item.ELECTRONIC_LINK != null && item.ELECTRONIC_LINK != "")
+{
+                        <td><a href="#"  onclick="ViewElectronicFileLink('@item.ELECTRONIC_LINK')" class="ElectronicLine">View & Download</a></td>
+}
+else
+{
+    <td></td>
+}
                         @if (item.PATH != null && item.PATH != "")
                         {
                         <td> <a href="@Url.Action("DownLoadPatientUploadDocument", "Home", new { PatientDocumentID = item.PATIENT_DOCUMENT_ID })">DownLoad</a></td>

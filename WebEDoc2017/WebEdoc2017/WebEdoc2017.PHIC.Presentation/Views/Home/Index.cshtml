@@ -12,10 +12,11 @@
     <input id="hdPatientLogId" type="hidden" value="@ViewBag.PatientLogID" />
     <input id="hdLoginType" type="hidden" value="@ViewBag.LogInType" />
 
-
+    
     <div style="clear:both;">
-        
-        <div id="" class="treeview" style="width:30%;overflow-x:scroll; height:700px;float:left;margin-top:3px; ">
+       
+        <div id="" class="treeview" style="width:30%;overflow-x:scroll; height:700px;float:left;margin-top:0px; ">
+
            <br />
           
            <table width="100%">
@@ -52,10 +53,10 @@
                 </tr>
                 <tr>
                     <td><input id="txtCategoryDesc" placeholder="Enter Description" value="" class="form-control" /></td>
-                    <td><img src="../../../../Images/Loader.gif" style="width:45%;height:17%;display:none;" id="AddEditCategoryLoader" /></td>
+                   
                 </tr>
                 <tr>
-                   
+                    <td><img src="../../../../Images/Loader.gif" style="width:45%;height:17%;display:none;" id="AddEditCategoryLoader" /></td>
                 </tr>
 
             </table>
@@ -99,7 +100,7 @@
                     <td valign="top">Category</td>
                     <td valign="top"> <div id="divCategory">@Html.Partial("DropDownList/_ddlDocumentCategory", Model.lstDocumentCategory)  </div></td>
                     <td valign="top">Attachement Type</td>
-                    <td valign="top"> <select id="ddlAttachementType" class="form-control" onchange="TypeOfDocument()"><option value="0">--Select--</option><option value="1">Electronic Line</option><option value="2">File Upload</option></select>@* *@</td>
+                    <td valign="top"> <select id="ddlAttachementType" class="form-control" onchange="TypeOfDocument()"><option value="0">--Select--</option><option value="1">Electronic Link</option><option value="2">File Upload</option></select>@* *@</td>
                 </tr>
                 <tr>
                     <td valign="top">
@@ -178,7 +179,7 @@
         'LoginType': LoginType
     };
     var URL = '@Url.Action("getPatientDocumentByCategoryID", "Home")';
-    $("#divTreeViewLoader").show();
+        $("#MainLoader").show();
     $.ajax({
         url: URL,
         type: "POST",
@@ -187,7 +188,7 @@
 
             $("#PatientDocumentContent").html("");
             $("#PatientDocumentContent").html(response);
-            $("#divTreeViewLoader").hide();
+            $("#MainLoader").hide();
             var LoginType = $("#hdLoginType").val();
             if (LoginType == "Doctor") {
                 $("#ddlCategory").val(MenuID).prop("disabled", true);
@@ -265,20 +266,24 @@
 
         if (Title == null || Title == "") {
             alert("Please enter Title");
+            $("#txtTitle").focus();
             return;
         }
         if (NAME == null || NAME == "") {
+            $("#txtDocumentName").focus();
             alert("Please enter NAME");
             return;
         }
 
         if (ddlType == 0) {
+            $("#ddlAttachementType").focus();
             alert("Please select Attachement Type");
             return;
         }
         if (ddlType == 1)
         {
-            if (ELECTRONIC_LINK == null || ELECTRONIC_LINK=="") {
+            if (ELECTRONIC_LINK == null || ELECTRONIC_LINK == "") {
+                $("#txtDocumentElectronicLink").focus();
                 alert("Please enter Electronic link.");
                 return;
             }
@@ -286,6 +291,7 @@
         else {
             if(PatientDocumentID==0) if(totalFiles ==0)
             {
+                $("#DocumentFile").focus();
                 alert("Please select file to upload.");
                 return;
             }
