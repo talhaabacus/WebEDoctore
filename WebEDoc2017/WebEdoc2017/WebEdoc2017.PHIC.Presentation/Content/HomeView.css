@@ -57,3 +57,7 @@
   /*padding:3px;*/
   max-width:100%;
 }
+
+  .clicked {
+     font-weight:bold;
+}

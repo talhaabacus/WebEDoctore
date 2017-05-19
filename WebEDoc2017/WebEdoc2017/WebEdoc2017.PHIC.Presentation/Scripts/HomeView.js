@@ -134,6 +134,12 @@ function OpenSearchDialoge()
       .dialog("open");
 }
 
+$(function(){
+    $("#divTreeView a").bind("click", function () {
+        $("#divTreeView a").removeClass("clicked"); // Remove all highlights
+        $(this).addClass("clicked"); // Add the class only for actually clicked element
+    });
+});
 
 $(function () {
     $('#SearchDialog')
