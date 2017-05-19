@@ -140,9 +140,9 @@ $(function () {
       .dialog({
           title:"Patient Document",
           autoOpen: false,
-          width: 600,
+          width: 700,
           modal: true,
-          height: 300,
+          height: 350,
           buttons: {
               "Search": function () {
                   SearchDocument();
@@ -200,11 +200,11 @@ $(function () {
     $('#AddEditDocument').dialog({
         title: "Add/Edit Document",
         autoOpen: false,
-        width: 800,
+        width: 700,
         modal: true,
-        height: 340,
+        height: 370,
         buttons: {
-            "SAVE": function () {
+            "Save": function () {
                 AddPatientDocument();
             },
             "Close": function () { $(this).dialog("close"); }
@@ -239,9 +239,9 @@ $(function () {
         autoOpen: false,
         width: 400,
         modal: true,
-        height: 240,
+        height: 295,
         buttons: {
-            "SAVE": function () {
+            "Save": function () {
                 SaveCategory();
             },
             "Close": function () { $(this).dialog("close"); }
@@ -310,6 +310,13 @@ function DeletePatientDocument(id,Category)
 
 function ClearAll()
 {
+    var LoginType = $("#hdLoginType").val();
+    if (LoginType == "Doctor") {
+       
+    }
+    else {
+        $("#ddlCategory").val("0");
+    }
     $("#ddlAttachementType").val(0);
     $("#DocumentFile").val("");
     $("#txtTitle").val("");

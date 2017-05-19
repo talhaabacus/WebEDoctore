@@ -11,7 +11,7 @@
 <input type="hidden" id="hdCategoryIDForDocument" value="@ViewBag.CategoryID" />
 <div style="margin-right:0px;text-align:right;">
 
-    <img src="~/Images/Loader.gif" id="MainLoader" style="display:none;width:100px;height:17px;" />   <a href="#" onclick="OpenSearchDialoge()"><img src="~/Images/Search.png" width="2%" height="5%" />Search</a>&nbsp;&nbsp;&nbsp;<img src="~/Images/add.png" /><a href="#" onclick="AddDocument();">Add</a> </div>
+    <img src="~/Images/Loader.gif" id="MainLoader" style="display:none;width:100px;height:17px;" />   <a href="#" onclick="OpenSearchDialoge()"><img src="~/Images/Search.png" width="2%" height="6%" />Search</a> &nbsp;&nbsp;<a href="#" onclick="GetAllDocument();">Load All</a>&nbsp;&nbsp;&nbsp;<img src="~/Images/add.png" /><a href="#" onclick="AddDocument();">Add</a> </div>
 <table width="100%">
     <thead class="th">
         <tr>
@@ -115,7 +115,7 @@ else
         }
         else
         {
-            <tr><td colspan="8" align="center">No Record Found</td></tr>
+            <tr><td colspan="8" align="center">No Document Found</td></tr>
         }
     </tbody>
 

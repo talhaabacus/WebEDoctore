@@ -39,4 +39,21 @@
             text-wrap: avoid;
         }
 
+
+
+
         /*Tree View Style*/  
+
+        /*
+            Fit Text Area inside div
+
+
+        */
+  textarea
+{
+  /*border:1px solid #999999;*/
+
+ 
+  /*padding:3px;*/
+  max-width:100%;
+}

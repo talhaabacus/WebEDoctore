@@ -17,12 +17,12 @@
        
         <div id="" class="treeview" style="width:30%;overflow-x:scroll; height:700px;float:left;margin-top:0px; ">
 
-           <br />
+          <br />
           
            <table width="100%">
                <thead>
                   
-                   <tr><th class="th" style="text-align:center;" >Category</th></tr>
+                   <tr><th class="th" style="text-align:center;font-weight:normal;" >Category</th></tr>
                </thead>
                <tbody>
                    <tr>
@@ -37,6 +37,7 @@
            </table>
            
         </div>
+    
         <div id="PatientDocumentContent" style="width:70%;float:right;margin-top:0px; ">
             @Html.Partial("_patientDocumentPartial", Model.lstPatientDocument)
         </div>
@@ -45,18 +46,24 @@
             <input type="hidden" id="actionType" value="" />
             <input type="hidden" id="_MenuID" value="" />
             <input type="hidden" id="_ParentID" value="" />
-            <table width="60%">
+            <table width="100%">
                 <tr>
+                    <td>Name:</td>
                     <td><input id="txtCategoryName" placeholder="Enter Name" value="" class="form-control" /></td>
-                    <td></td>
+                    
 
                 </tr>
                 <tr>
-                    <td><input id="txtCategoryDesc" placeholder="Enter Description" value="" class="form-control" /></td>
+                    <td valign="top">Description:</td>
+                    <td>
+                    <textarea class="form-control"  id="txtCategoryDesc" rows="3" cols="3" placeholder="Enter Description" maxlength="250" value="">
+                    </textarea>
+                   </td>
                    
                 </tr>
                 <tr>
-                    <td><img src="../../../../Images/Loader.gif" style="width:45%;height:17%;display:none;" id="AddEditCategoryLoader" /></td>
+                    
+                    <td colspan="2"><img src="../../../../Images/Loader.gif" style="width:45%;height:17%;display:none;" id="AddEditCategoryLoader" /></td>
                 </tr>
 
             </table>
@@ -68,20 +75,16 @@
             <img src="../../../../Images/Loader.gif" style="width:45%;height:45%; display:none;" id="DeleteCategoryConfirmationLoader" />
 
         </div>
-
         <div id="DeleteDocumentConfirmation" >
             Are you sure to want delete this Document?
             <img src="../../../../Images/Loader.gif" style="width:45%;height:45%; display:none;" id="DeleteDocumentConfirmationLoader" />
 
         </div>
-
         <div id="ErrorModelPop">
            <div id="Error"
                 ></div>
 
         </div>
-
-      
         <div id="AddEditDocument">
             <table width="100%"  >
                 <tr>
@@ -89,69 +92,71 @@
                         <td><input type="hidden" id="hdPatientDocumentID" value="0"/></td>
                     </tr>
                 <tr>
-                    <td valign="top">Title</td>
+                    <td valign="top">Title:</td>
                     <td valign="top">  <input type="text" class="form-control" id="txtTitle" /></td>
                     <td valign="top">
-                        Name
+                        Name:
                     </td>
                     <td valign="top"><input id="txtDocumentName" type="text" class="form-control" required /></td>
                 </tr>
                 <tr>
-                    <td valign="top">Category</td>
+                    <td valign="top">Category:</td>
                     <td valign="top"> <div id="divCategory">@Html.Partial("DropDownList/_ddlDocumentCategory", Model.lstDocumentCategory)  </div></td>
-                    <td valign="top">Attachement Type</td>
+                    <td valign="top">Attachement:</td>
                     <td valign="top"> <select id="ddlAttachementType" class="form-control" onchange="TypeOfDocument()"><option value="0">--Select--</option><option value="1">Electronic Link</option><option value="2">File Upload</option></select>@* *@</td>
                 </tr>
                 <tr>
                     <td valign="top">
-                        Electronic Link
+                        E-Link:
                     </td>
                     <td valign="top">
                         <input disabled id="txtDocumentElectronicLink" type="text" class="form-control" />
                     </td>
-                    <td valign="top">File</td>
+                    <td valign="top">File:</td>
                     <td valign="top"><input disabled type="file" class="form-control" id="DocumentFile" name="DocumentFile" /></td>
                   
                 </tr>
+             
                 <tr>
                   
-                    <td valign="top">Description</td>
-                    <td colspan="1" valign="top"><textarea placeholder="Maximum Length 2000" maxlength="2000" rows="3" cols="1" id="txtDocumentDesc" type="text" class="form-control" required></textarea></td>
-                    <td><img src="../../../../Images/Loader.gif" style="width:40%;height:25%; display:none;" id="AddEditDocumentLoader" />
-</td>
+                    <td valign="top">Description:</td>
+                    <td colspan="3" valign="top"><textarea  placeholder="Maximum Length 2000" maxlength="2000"  rows="3" cols="3" ty id="txtDocumentDesc"  class="form-control textarea" ></textarea></td>
+
                 </tr>
                 <tr>
-                   
+                    <td></td>
+                    <td ><img src="../../../../Images/Loader.gif" style="width:40%;height:15%; display:none;" id="AddEditDocumentLoader" /></td>
+
                 </tr>
+               
+                
             </table>
-
         </div>
-
-
         <div id="SearchDialog" >
           <table width="100%" >
-                <tr>
-
-
-                <tr>
-                    <td valign="top">Title</td>
+               <tr>
+                    <td valign="top">Title:</td>
                     <td valign="top">  <input type="text" class="form-control" id="Title" /></td>
                     <td valign="top">
-                        Name
+                        Name:
                     </td>
                     <td valign="top"><input id="DocumentName" type="text" class="form-control" required /></td>
                 </tr>
                 <tr>
-                    <td valign="top">Category</td>
+                    <td valign="top">Category:</td>
                     <td valign="top">@Html.DropDownListFor(Model => Model.lstDocumentCategory, new SelectList(Model.lstDocumentCategory, "DOC_CATEGORY_ID","Name"),new { @id="ddlSearchCategory",@class="form-control"}) </td>
-                    <td valign="top">
-                        Description
-                    </td>
-                    <td valign="top"><textarea placeholder="Maximum Length 2000" maxlength="2000" rows="3" cols="3" id="SearchDescription" type="text" class="form-control" required></textarea></td>
+                  
                    
                 </tr>
               <tr>
-                  <td colspan="3" align="center"><img src="../../../../Images/Loader.gif" style="width:40%;height:29%; display:none;" id="SearchDialogLoader" /></td>
+                  <td valign="top">
+                      Description:
+                  </td>
+                  <td colspan="3" valign="top"><textarea placeholder="Maximum Length 2000" maxlength="2000" rows="3" cols="3" id="SearchDescription" type="text" class="form-control textarea" ></textarea></td>
+              </tr>
+              <tr>
+                  <td></td>
+                  <td align="left"><img src="../../../../Images/Loader.gif" style="width:40%;height:20%; display:none;" id="SearchDialogLoader" /></td>
               </tr>
                
                 <tr></tr>
@@ -165,13 +170,10 @@
 
 <script>
     function GetPatientDocument(MenuID, ParentID) {
-
-       
         $("#hdCategoryIDForDocument").val(MenuID);
         var LoginType = $("#hdLoginType").val();
         $("#ddlCategory").val("0");
     var Patient_ID = $("#hdPatientLogId").val();
-
     var par = {
         'MenuID': MenuID,
         'ParentID': ParentID,
@@ -185,7 +187,6 @@
         type: "POST",
         data: par,
         success: function (response, textStatus, jqXHR) {
-
             $("#PatientDocumentContent").html("");
             $("#PatientDocumentContent").html(response);
             $("#MainLoader").hide();
@@ -193,11 +194,7 @@
             if (LoginType == "Doctor") {
                 $("#ddlCategory").val(MenuID).prop("disabled", true);
             }
-
-       
-           
-
-        },
+      },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("error");
         },
@@ -210,38 +207,29 @@
 
     function DeleteCategory() {
         var CategoryID = $("#_MenuID").val();
-
-
         var URL = '@Url.Action("DeleteDocumentCategoryByCategoryID", "Home")';
-
         var parameter = {
             'CategroyID': CategoryID,
-
-
         };
         $("#DeleteCategoryConfirmationLoader").show();
         $.post(URL, parameter, function (data, status, xhr) {
             if (data != null) {
                 if (data.IsValid == false) {
-                    ErrorDialoge(data.Error);
-                    $("#DeleteCategoryConfirmation").dialog("close")
+                    //ErrorDialoge("This category has some document. Please delete document and then delete this category");
+                    alert("This category has some document. Please delete document and then delete this category");
+                   $("#DeleteCategoryConfirmation").dialog("close")
+                    $("#DeleteCategoryConfirmationLoader").hide();
                 }
                 else {
                     $("#divTreeView").html("");
                     $("#divTreeView").html(data.HTML);
-
                     $("#divCategory").html("");
                     $("#divCategory").html(data.ddlDocumentCategory);
-
                     $("#DeleteCategoryConfirmationLoader").hide();
-
                     $("#DeleteCategoryConfirmation").dialog("close")
                 }
 
             }
-
-
-
         });
     }
 
@@ -249,19 +237,15 @@
 
         var ddlType = $("#ddlAttachementType").val();
         var LoginType = $("#hdLoginType").val();
-
         var Title = $("#txtTitle").val();
         var PatientDocumentID = $("#hdPatientDocumentID").val();
         var NAME = $("#txtDocumentName").val();
         var DESCRIPTION = $("#txtDocumentDesc").val();
-        // var DOC_CATEGORY_ID = $("#hdCategoryIDForDocument").val();/// hidden field
         var DOC_CATEGORY_ID = $("#ddlCategory").val();/// hidden field
-
         var ELECTRONIC_LINK = $("#txtDocumentElectronicLink").val();
         var Patient_ID = $("#hdPatientLogId").val();
         var form_data = new FormData();
         var totalFiles = document.getElementById("DocumentFile").files.length;
-                 
         if (Title == null || Title == "") {
             alert("Please enter Title");
             $("#txtTitle").focus();
@@ -275,7 +259,7 @@
 
         if (ddlType == 0) {
             $("#ddlAttachementType").focus();
-            alert("Please select Attachement Type");
+            alert("Please select Attachement.");
             return;
         }
         if (ddlType == 1)
@@ -294,16 +278,10 @@
                 return;
             }
         }
-
         for (var i = 0; i < totalFiles; i++) {
             var file = document.getElementById("DocumentFile").files[i];
-
             form_data.append("FileUpload", file);
         }
-
-
-
-
         form_data.append('NAME', NAME);
         form_data.append('DESCRIPTION', DESCRIPTION);
         form_data.append('DOC_CATEGORY_ID', DOC_CATEGORY_ID);
@@ -312,11 +290,7 @@
         form_data.append('MenuID', DOC_CATEGORY_ID);
         form_data.append('PATIENT_ID', Patient_ID);
         form_data.append('LoginType', LoginType);
-
         form_data.append('PATIENT_DOCUMENT_ID', PatientDocumentID);
-
-
-
         if (PatientDocumentID == 0) {
             $("#AddEditDocumentLoader").show();
             var URL = '@Url.Action("AddPatientDocument", "Home")';
@@ -333,7 +307,7 @@
                     $("#PatientDocumentContent").html(response);
                     $("#AddEditDocument").dialog("close")
                     $("#AddEditDocumentLoader").hide();
-                    $("#ddlCategory").val("0");
+                    
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     //alert("error");
@@ -372,10 +346,6 @@
                 }
             });
         }
-
-
-
-
     }
 
     function DeleteDocument()
@@ -385,7 +355,6 @@
         var Patient_ID = $("#hdPatientLogId").val();
         var LoginType = $("#hdLoginType").val();
         var hdCategoryID = $("#hdCategoryIDForDocument").val();
-      
         var parameter = {
             'PatientDocumentID': PatientDocumentID,
             'CategoryID': CategoryID,
@@ -405,14 +374,9 @@
                 ClearAll();
             }
         });
-
-      
-    }
+   }
 
     function SaveCategory() {
-
-
-        debugger;
         var _MenuID = $("#_MenuID").val();
         var _ParentID = $("#_ParentID").val();
         var actionType = $("#actionType").val();
@@ -421,17 +385,15 @@
         if (CategoryName == null || CategoryName == "")
         {
             alert("Please enter Name.");
+            $("#txtCategoryName").focus();
             return;
         }
-
-
         var parameter = {
             '_MenuID': _MenuID,
             '_ParentID': _ParentID,
             'actionType': actionType,
             'CategoryName': CategoryName,
             'CategoryDesc': CategoryDesc
-
         };
         var URL = '@Url.Action("SaveCategory", "Home")';
         $("#AddEditCategoryLoader").show();
@@ -441,21 +403,13 @@
                 $("#divTreeView").html(data.treeView);
                 $("#divCategory").html("");
                 $("#divCategory").html(data.ddlCategory);
-
                 $("#txtCategoryName").val("");
                 $("#txtCategoryDesc").val("");
                 $("#AddEditCategoryLoader").hide();
                 $("#AddEditCategory").dialog("close")
             }
-
-
-
         });
-
     }
-
-
-
     function SearchDocument()
     {
         var Title = $("#Title").val();
@@ -463,19 +417,13 @@
         var CategoryID = $("#ddlSearchCategory").val();
         var PatientID = $("#hdPatientLogId").val();
         var Description = $("#SearchDescription").val();
-        
-
-        
-
         var Parameter = {
             'TITLE': Title,
             'NAME': Name,
             'DOC_CATEGORY_ID': CategoryID,
             'PATIENT_ID': PatientID,
             'DESCRIPTION': Description
-           
-
-        };
+       };
         $("#SearchDialogLoader").show();
         var URL = '@Url.Action("SearchPatientDocument", "Home")';
         $.post(URL, Parameter, function (data) {
@@ -483,7 +431,25 @@
             $("#PatientDocumentContent").html(data);
             $("#SearchDialog").dialog("close");
             $("#SearchDialogLoader").hide();
+        });
+    }
 
+
+    function GetAllDocument()
+    {
+        var PatientID = $("#hdPatientLogId").val();
+        var Parameter = {
+       
+            'PATIENT_ID': PatientID,
+           
+        };
+        $("#MainLoader").show();
+        var URL = '@Url.Action("SearchPatientDocument", "Home")';
+        $.post(URL, Parameter, function (data) {
+            $("#PatientDocumentContent").html("");
+            $("#PatientDocumentContent").html(data);
+            $("#SearchDialog").dialog("close");
+            $("#MainLoader").hide();
         });
     }
     var LoginType = $("#hdLoginType").val();
@@ -491,11 +457,8 @@
     {
         $("#divTreeView").show();
     }
-        
     else  {
         $("#divTreeView").find("span").removeClass("selector");
     }
-   
-   
     $("#ddlSearchCategory").prepend("<option value='0' selected='selected'>-Select-</option>");
 </script>
