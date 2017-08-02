@@ -11,6 +11,8 @@
 <div>
     <input id="hdPatientLogId" type="hidden" value="@ViewBag.PatientLogID" />
     <input id="hdLoginType" type="hidden" value="@ViewBag.LogInType" />
+    <input type="hidden" id="hdVisitKey" value="@ViewBag.Visit_Key"/>
+    <input id="hdPhysicianID" type="hidden" value="@ViewBag.PhysicianID"/>
 
     
     <div style="clear:both;">
@@ -244,6 +246,9 @@
         var DOC_CATEGORY_ID = $("#ddlCategory").val();/// hidden field
         var ELECTRONIC_LINK = $("#txtDocumentElectronicLink").val();
         var Patient_ID = $("#hdPatientLogId").val();
+        var VisitKey = $("#hdVisitKey").val();
+        var PhysicianID = $("#hdPhysicianID").val();
+
         var form_data = new FormData();
         var totalFiles = document.getElementById("DocumentFile").files.length;
         if (Title == null || Title == "") {
@@ -291,6 +296,8 @@
         form_data.append('PATIENT_ID', Patient_ID);
         form_data.append('LoginType', LoginType);
         form_data.append('PATIENT_DOCUMENT_ID', PatientDocumentID);
+        form_data.append('VisitKey', VisitKey);
+        form_data.append('PhysicianID', PhysicianID);
         if (PatientDocumentID == 0) {
             $("#AddEditDocumentLoader").show();
             var URL = '@Url.Action("AddPatientDocument", "Home")';
@@ -355,12 +362,16 @@
         var Patient_ID = $("#hdPatientLogId").val();
         var LoginType = $("#hdLoginType").val();
         var hdCategoryID = $("#hdCategoryIDForDocument").val();
+        var VisitKey = $("#hdVisitKey").val();
+        var PhysicianID = $("#hdPhysicianID").val();
         var parameter = {
             'PatientDocumentID': PatientDocumentID,
             'CategoryID': CategoryID,
             'Patient_ID': Patient_ID,
             'LoginType': LoginType,
-            'SelectedCategoryID': hdCategoryID
+            'SelectedCategoryID': hdCategoryID,
+            'VisitKey': VisitKey,
+            'PhysicianID': PhysicianID
 
         };
         $("#DeleteDocumentConfirmationLoader").show();

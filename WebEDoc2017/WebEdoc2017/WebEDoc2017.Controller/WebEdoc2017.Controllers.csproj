@@ -74,11 +74,12 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Service References\PHICService\PHICService.wsdl" />
+    <None Include="Service References\PHICService\PHICservice.wsdl" />
     <None Include="Service References\PHICService\WebEdoc2017.Controllers.PHICService.paraPatientDocument.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -106,7 +107,7 @@
     <WCFMetadataStorage Include="Service References\PHICService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\PHICService\PHICService.disco" />
+    <None Include="Service References\PHICService\PHICservice.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\PHICService\configuration91.svcinfo" />

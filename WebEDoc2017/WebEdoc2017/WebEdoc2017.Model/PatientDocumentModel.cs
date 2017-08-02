@@ -11,7 +11,8 @@ namespace WebEdoc2017.Models
         public Int64 PATIENT_DOCUMENT_ID { get; set; }
         public string   NAME{get;set;}
         public string   TITLE{get;set;}
-
+        public string VisitKey { get; set; }
+        public string PhysicianID { get; set; }
         public string   DESCRIPTION{get;set;}
 
         public Int64   DOC_CATEGORY_ID{get;set;}

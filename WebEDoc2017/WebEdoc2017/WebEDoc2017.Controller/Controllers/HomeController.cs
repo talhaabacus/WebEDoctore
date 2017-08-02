@@ -15,10 +15,14 @@ namespace WebEdoc2017.Controllers
     public class HomeController : BaseController
     {
         [HttpGet]
-        public ActionResult Index(string patient_id, string LoginType, string Pid)
+        public ActionResult Index(string patient_id, string LoginType)
         {
           
             HomeViewModel model = new HomeViewModel();
+            string VisitKey = string.Empty;
+            string PhysicianID = string.Empty;
+            DataSet dsVisit = new DataSet();
+
             PHICService.PatientData documentCategory = new PHICService.PatientData();
             PHICService.PatientData patientDocumentdata = new PHICService.PatientData();
 
@@ -27,7 +31,18 @@ namespace WebEdoc2017.Controllers
             {
                 documentCategory = service.GetDocumentCategory();
                 patientDocumentdata = service.GetPatientDocumentByPatientID(patient_id);
+               
+                    dsVisit = service.GetLastVisitByPatientID(patient_id);
                 
+            }
+
+            if(dsVisit !=null)
+            {
+                if(dsVisit.Tables[0].Rows.Count >0)
+                {
+                    VisitKey = dsVisit.Tables[0].Rows[0]["Visit_Key"].ToString();
+                    PhysicianID= dsVisit.Tables[0].Rows[0]["Doctor_ID"].ToString();
+                }
             }
             if (documentCategory.dt.Rows.Count > 0)
             {
@@ -54,6 +69,8 @@ namespace WebEdoc2017.Controllers
            
             ViewBag.PatientLogID = patient_id;
             ViewBag.LogInType = LoginType;
+            ViewBag.Visit_Key = VisitKey;
+            ViewBag.PhysicianID = PhysicianID;
 
             return View(model);
         }
@@ -83,7 +100,7 @@ namespace WebEdoc2017.Controllers
 
 
         [HttpPost]
-        public ActionResult AddPatientDocument(Int64 MenuID, PatientDocumentModel _parameter,string LoginType)
+        public ActionResult AddPatientDocument(Int64 MenuID, PatientDocumentModel _parameter,string LoginType )
         {
 
             var _fileName = string.Empty;
@@ -127,6 +144,8 @@ namespace WebEdoc2017.Controllers
             parm.Extension = _Extension;
             parm.PatientID = _parameter.PATIENT_ID;
             parm.attachement = byteData;
+            parm.VisitKey = _parameter.VisitKey.ToString();
+            parm.PhysicianId = _parameter.PhysicianID.ToString();
             using (var service = new PHICService.PHICServiceSoapClient())
             {
                 int Value = service.AddPatientDocument(MenuID, parm);
@@ -155,6 +174,8 @@ namespace WebEdoc2017.Controllers
                     model = Extension.ConvertToPatientDocumentList(data.dt);
                     ViewBag.CategoryID = MenuID;
                     ViewBag.LoginType = LoginType;
+                    ViewBag.Visit_Key = _parameter.VisitKey.ToString();
+                    ViewBag.PhysicianID = _parameter.PhysicianID.ToString();
                     returnData = RenderPartialViewToString("_patientDocumentPartial", model);
                 }
             }
@@ -213,6 +234,8 @@ namespace WebEdoc2017.Controllers
             parm.Title = _parameter.TITLE;
             parm.Extension = _Extension;
             parm.PatientID = _parameter.PATIENT_ID;
+            parm.VisitKey = _parameter.VisitKey.ToString();
+            parm.PhysicianId = _parameter.PhysicianID.ToString();
             parm.attachement = byteData;
             using (var service = new PHICService.PHICServiceSoapClient())
             {
@@ -240,6 +263,8 @@ namespace WebEdoc2017.Controllers
                     model = Extension.ConvertToPatientDocumentList(data.dt);
                     ViewBag.CategoryID = MenuID;
                     ViewBag.LoginType = LoginType;
+                    ViewBag.Visit_Key = _parameter.VisitKey.ToString();
+                    ViewBag.PhysicianID = _parameter.PhysicianID.ToString();
                     returnData = RenderPartialViewToString("_patientDocumentPartial", model);
                 }
             }
@@ -248,7 +273,7 @@ namespace WebEdoc2017.Controllers
 
 
         [HttpPost]
-        public ActionResult DeletePatientDocument(Int64 PatientDocumentID,Int64 CategoryID,string Patient_ID,string LoginType, Int64 SelectedCategoryID)
+        public ActionResult DeletePatientDocument(Int64 PatientDocumentID,Int64 CategoryID,string Patient_ID,string LoginType, Int64 SelectedCategoryID,string VisitKey,string PhysicianID)
         {
             bool IsValid = false;
             List<PatientDocumentModel> model = new List<PatientDocumentModel>();
@@ -290,7 +315,9 @@ namespace WebEdoc2017.Controllers
                       model = Extension.ConvertToPatientDocumentList(data.dt);
                       ViewBag.CategoryID = CategoryID;
                       ViewBag.LoginType = LoginType;
-                      returnData = RenderPartialViewToString("_patientDocumentPartial", model);
+                    ViewBag.Visit_Key = VisitKey.ToString();
+                    ViewBag.PhysicianID = PhysicianID.ToString();
+                returnData = RenderPartialViewToString("_patientDocumentPartial", model);
                 }
             
             return Json(returnData);

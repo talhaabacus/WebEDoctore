@@ -42,6 +42,8 @@ namespace WebEdoc.Service
             public string Name;
             public string Title;
             public string Description;
+            public string VisitKey;
+            public string PhysicianId;
 
             public Int64 CategoryID;
 
@@ -315,8 +317,8 @@ namespace WebEdoc.Service
 
                 
                 _data._CommandType = CommandType.Text;
-                _data.CommandText = "INSERT INTO PATIENT_DOCUMENT (PATIENT_DOCUMENT_ID,NAME,TITLE,DESCRIPTION,DOC_CATEGORY_ID,ELECTRONIC_LINK,EXTENSION,PATH,PATIENT_ID)" +
-                                                    " values(PATIENT_DOCUMENT_SEQ.NEXTVAL,'" + para.Name + "','" + para.Title + "','" + para.Description + "'," + para.CategoryID + ",'" + para.ElectronicLink + "','" + para.Extension + "','" + para.Path + "','" + para.PatientID + "')";
+                _data.CommandText = "INSERT INTO PATIENT_DOCUMENT (PATIENT_DOCUMENT_ID,NAME,TITLE,DESCRIPTION,DOC_CATEGORY_ID,ELECTRONIC_LINK,EXTENSION,PATH,PATIENT_ID,Visit_Key,physician_id,PHI_date)" +
+                                                    " values(PATIENT_DOCUMENT_SEQ.NEXTVAL,'" + para.Name + "','" + para.Title + "','" + para.Description + "'," + para.CategoryID + ",'" + para.ElectronicLink + "','" + para.Extension + "','" + para.Path + "','" + para.PatientID + "','"+ para.VisitKey.ToString()+"','"+ para.PhysicianId.ToString() +"',SYSDATE)";
                 _data.OpenWithOutTrans();
 
                 //Executing Query
@@ -368,8 +370,7 @@ namespace WebEdoc.Service
                 _data._CommandType = CommandType.Text;
 
                 // _data.CommandText = "UPDATE PATIENT_DOCUMENT SET  NAME='" + para.Name + "',TITLE='" + para.Title + "',DESCRIPTION='" + para.Description + "',DOC_CATEGORY_ID=" + para.CategoryID + ",ELECTRONIC_LINK='" + para.ElectronicLink + "',PATIENT_ID='" + para.PatientID + "' WHERE PATIENT_DOCUMENT_ID=" + para.PatientDocumentID + " AND DOC_CATEGORY_ID=" + CategoryID + " ";
-                _data.CommandText = "UPDATE PATIENT_DOCUMENT SET  NAME='" + para.Name + "',TITLE='" + para.Title + "',DESCRIPTION='" + para.Description + "',DOC_CATEGORY_ID=" + para.CategoryID + ",ELECTRONIC_LINK='" + para.ElectronicLink + "',PATIENT_ID='" + para.PatientID + "' WHERE PATIENT_DOCUMENT_ID=" + para.PatientDocumentID + "";
-
+                _data.CommandText = "UPDATE PATIENT_DOCUMENT SET  NAME='" + para.Name + "',TITLE='" + para.Title + "',DESCRIPTION='" + para.Description + "',DOC_CATEGORY_ID=" + para.CategoryID + ",ELECTRONIC_LINK='" + para.ElectronicLink + "',PATIENT_ID='" + para.PatientID + "',visit_key='"+para.VisitKey.ToString()+ "',physician_id='"+para.PhysicianId.ToString()+"' WHERE PATIENT_DOCUMENT_ID=" + para.PatientDocumentID + "";
 
 
 
@@ -379,22 +380,7 @@ namespace WebEdoc.Service
                 //Executing Query
                 object obj = _data.Execute(OracleDataAccess.ExecutionType.ExecuteNonQuery);
                 returnValue = Convert.ToInt16(obj);
-                //if (returnValue > 0)
-                //{
-                //    string FileType = para.Path.ToString();
-                //    int posn = FileType.IndexOf(".");
-                //    if (posn > 0)
-                //        FileType = FileType.Substring(posn + 1, FileType.Length - posn - 1);
-                //    else
-                //        FileType = "";
-                //    string FileName = para.Title.Trim() + "." + FileType;
-
-                //    FileHelper.CheckOrCreateDirectory("C:\\inetpub\\wwwroot\\Upload");
-                //    //   FileHelper.BytesToDisk(para.attachement, "C:\\inetpub\\wwwroot\\Upload" + "\\" + FileName);
-                //    FileHelper.BytesToDisk(para.attachement, para.Path.ToString());
-
-                //}
-
+               
 
 
             }
@@ -622,7 +608,71 @@ namespace WebEdoc.Service
         }
 
 
+        [WebMethod]
+        public DataSet GetLastVisitByPatientID(string PatientID)
+        {
+            OracleDataAccess.OracleCommandData _data = new OracleDataAccess.OracleCommandData();
+            DataSet _ds = new DataSet();
+            try
+            {
 
+                _data._CommandType = CommandType.Text;
+                _data.CommandText = "SELECT * FROM VISIT where PATIENT_ID='" + PatientID.ToString().Trim() + "'  and   rownum < 2   order by Visit_ID DESC";
+                _data.OpenWithOutTrans();
+
+                //Executing Query
+                 _ds = _data.Execute(OracleDataAccess.ExecutionType.ExecuteDataSet) as DataSet;
+
+               
+
+                //string sQuery = "SELECT * FROM PatientTable ";
+                // data.dt= new DBAction().ExecuteDataSetInline(sQuery).Tables[0];
+            }
+            catch (Exception )
+            {
+                //data.Error = ex.Message.ToString();
+                //throw;
+            }
+            finally
+            {
+                _data.Close();
+            }
+            return _ds;
+        }
+
+
+
+        [WebMethod]
+        public DataSet GetPhysicianIDByVisitKey(string VisitKey)
+        {
+            OracleDataAccess.OracleCommandData _data = new OracleDataAccess.OracleCommandData();
+            DataSet _ds = new DataSet();
+            try
+            {
+
+                _data._CommandType = CommandType.Text;
+                _data.CommandText = "SELECT * FROM VISIT where Visit_Key='" + VisitKey.ToString().Trim() + "' ";
+                _data.OpenWithOutTrans();
+
+                //Executing Query
+                _ds = _data.Execute(OracleDataAccess.ExecutionType.ExecuteDataSet) as DataSet;
+
+
+
+                //string sQuery = "SELECT * FROM PatientTable ";
+                // data.dt= new DBAction().ExecuteDataSetInline(sQuery).Tables[0];
+            }
+            catch (Exception)
+            {
+                //data.Error = ex.Message.ToString();
+                //throw;
+            }
+            finally
+            {
+                _data.Close();
+            }
+            return _ds;
+        }
 
 
 
